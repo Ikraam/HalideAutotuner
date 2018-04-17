@@ -1,0 +1,295 @@
+#include <Halide.h>
+#include <HalideRuntime.h>
+#include <HalideBuffer.h>
+#include <stdio.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <iostream>
+
+#include <map>
+#include <string>
+
+// How many times to run (and take min)
+// #define AUTOTUNE_TRIALS 3
+
+// Limit in seconds to try running for (0 = no limit)
+// #define AUTOTUNE_LIMIT 0
+
+// Size to run with
+//#define AUTOTUNE_N 1024, 1024
+
+
+
+
+inline Halide::Buffer<TYPE_N> _autotune_timing_stub_original(Halide::Func& func, bool noAlarm) {
+    func.compile_jit();
+
+    // TODO: this assumes scalar/non-Tuple outputs - should generalize to a Realization
+    // On cherche à trouver le buffer qui peut contenir les valeurs de la fonction de sortie  (taille et type) 
+    std::vector<Halide::Type> out_types = func.output_types();
+    std::vector<halide_buffer_t> out_raw_bufs;
+    std::vector<Halide::Buffer<Halide::Type>> out_bufs;
+/*
+    for (int i = 0; i < out_types.size(); i++) {
+        // Use the Buffer constructor as a helper to set up the buffer_t,
+        // but then throw away its allocation which we don't really want.
+        Halide::Buffer<buffer_t> bufinit(out_types[i], AUTOTUNE_N); // bufinit contient le types des sorties [je ne l'ai tjr pas compris)
+        out_raw_bufs.push_back(*bufinit.raw_buffer()); // on rajoute à out_raw_bufs le buffer bufinit (le type de la sortie) . [push_back est une fonction C++ = rajoute un élément à la fin du vecteur]  
+        out_raw_bufs[i].host = NULL;
+        // TODO: free the host pointer?!
+	Sortie fillOut;
+        fillOut.typeSortie = out_types[i];
+        fillOut.ss = &out_raw_bufs[i];
+        out_bufs.push_back(fillOut);  //out_bufs contient les couples (type data, ...)
+        assert(out_bufs[i].host_ptr() == NULL); // make sure we don't have an allocation
+    }
+    Halide::Realization output(out_bufs);
+    func.infer_input_bounds(output); //pour une réalisation en sortie, on détermine la taille de toutes les images en entrée. 
+    // assert(output[0].host_ptr()); // for now, the API doesn't seem to allocate outputs
+    
+    // TODO: this should go into Func::infer_input_bounds(Realization)
+    for (int i = 0; i < output.size(); i++) {
+        assert(!output[i].host_ptr()); // for now, the API doesn't seem to allocate outputs
+        buffer_t buf = *output[i].raw_buffer();
+        
+        // Figure out how much memory to allocate for this buffer
+        size_t min_idx = 0, max_idx = 0;
+        for (int d = 0; d < 4; d++) {
+            if (buf.stride[d] > 0) {
+                min_idx += buf.min[d] * buf.stride[d];
+                max_idx += (buf.min[d] + buf.extent[d] - 1) * buf.stride[d];
+            } else {
+                max_idx += buf.min[d] * buf.stride[d];
+                min_idx += (buf.min[d] + buf.extent[d] - 1) * buf.stride[d];
+            }
+        }
+        size_t total_size = (max_idx - min_idx);
+        while (total_size & 0x1f) total_size++;
+
+        // Allocate enough memory with the right dimensionality.
+        Halide::Buffer buffer(output[i].type(), total_size,
+                      buf.extent[1] > 0 ? 1 : 0,
+                      buf.extent[2] > 0 ? 1 : 0,
+                      buf.extent[3] > 0 ? 1 : 0);
+
+        // Rewrite the buffer fields to match the ones returned
+        for (int d = 0; d < 4; d++) {
+            buffer.raw_buffer()->min[d] = buf.min[d];
+            buffer.raw_buffer()->stride[d] = buf.stride[d];
+            buffer.raw_buffer()->extent[d] = buf.extent[d];
+        }
+        
+        output[i] = buffer;
+    }*/
+    int const x = func.dimensions();
+    printf("\n ----------  hola x : %d---- \n", x);
+    std::vector<int> dimensFunc;
+    for(int i = 0; i < x; i++) {
+      dimensFunc[i] = 4094;
+    }
+
+
+
+    timeval t1, t2;
+    double rv = 0;
+    const unsigned int timeout = AUTOTUNE_LIMIT;
+    Halide::Buffer<TYPE_N> outputBuffer;
+    if (noAlarm == false) {
+    alarm(timeout); }
+    for (int i = 0; i < AUTOTUNE_TRIALS; i++) {
+      gettimeofday(&t1, NULL);
+      outputBuffer = func.realize(dimensFunc);
+      gettimeofday(&t2, NULL);
+      if (noAlarm == false){
+      alarm(0); } // disable alarm
+      double t = (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec)/1000000.0;
+      if(i == 0 || t < rv)
+        rv = t;
+    }
+    printf("{\"time\": %.10f}\n", rv);
+    return outputBuffer;
+}
+
+
+
+inline Halide::Buffer<TYPE_N> _autotune_timing_stub(Halide::Func& func, bool noAlarm) {
+    func.compile_jit();
+
+    // TODO: this assumes scalar/non-Tuple outputs - should generalize to a Realization
+    // On cherche à trouver le buffer qui peut contenir les valeurs de la fonction de sortie  (taille et type) 
+    std::vector<Halide::Type> out_types = func.output_types();
+    std::vector<Halide::Buffer<TYPE_N>> out_bufs;
+    Halide::Buffer<TYPE_N> bufinit1;
+    for (int i = 0; i < out_types.size(); i++) {
+        // Use the Buffer constructor as a helper to set up the buffer_t,
+        // but then throw away its allocation which we don't really want. 
+        Halide::Buffer<TYPE_N> bufinit(AUTOTUNE_N); // 
+	bufinit1 = bufinit;
+        // TODO: free the host pointer?!
+       out_bufs.push_back(bufinit);  //out_bufs contient les couples (type data, ...)
+       //  je ne sais pas wech ndirou b hadi    assert(out_bufs[i].host_dirty() == NULL); // make sure we don't have an allocation */
+    }
+    Halide::Realization output(bufinit1);
+    func.infer_input_bounds(output); 
+    timeval t1, t2;
+    double rv = 0;
+    const unsigned int timeout = AUTOTUNE_LIMIT;
+    Halide::Buffer<TYPE_N> outputBuffer;
+    std::vector<double> trialsTime; 
+    for (int i = 0; i < AUTOTUNE_TRIALS; i++) {
+      if (noAlarm == false) {
+      alarm(timeout); }
+      gettimeofday(&t1, NULL);
+      outputBuffer=func.realize(AUTOTUNE_N);
+      gettimeofday(&t2, NULL);
+      if (noAlarm == false) { 
+      alarm(0);} // disable alarm
+      double t = (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec)/1000000.0;
+      trialsTime.push_back(t);
+      if(i == 0 || t < rv)
+        rv = t;
+    }
+    std::sort(trialsTime.begin(), trialsTime.end());
+    if (AUTOTUNE_TRIALS % 2 == 0) {rv= (trialsTime[AUTOTUNE_TRIALS / 2]+trialsTime[(AUTOTUNE_TRIALS / 2)-1])/2;}
+    else {rv = trialsTime[(AUTOTUNE_TRIALS-1) / 2];}
+    if (noAlarm == false){  
+    printf("{\"time\": %.10f}\n", rv);}
+    return outputBuffer;
+}
+
+
+
+#ifndef AUTOTUNE_HOOK
+#define AUTOTUNE_HOOK(x)
+#endif
+
+#ifndef BASELINE_HOOK
+#define BASELINE_HOOK(x)
+#endif
+
+ 
+
+// On linux, you can compile and run it like so:
+// g++ convolutionTensorFlow*.cpp -g -I ../../../include -I ../../../tools -L ../../../bin -lHalide `libpng-config --cflags --ldflags` -ljpeg -lpthread -ldl -o convolutionTensorFlow -std=c++11
+// LD_LIBRARY_PATH=../../../bin ./convolutionTensorFlow
+
+
+#include <Halide.h>
+
+#define AUTOTUNE_HOOK(x)
+#define BASELINE_HOOK(x)
+using namespace Halide;
+
+int main(int argc, char **argv) {
+
+
+    // This code is a test code for the convolution 
+    Func conv("conv");
+    Func input("input");
+    Func infilter("infilter");
+    Func bias("bias");
+    Func relu("relu");
+    Halide::Buffer<float> in_img (68,68,16,32);
+    Halide::Buffer<float> in_filter (5,5,16,32);
+    Halide::Buffer<float> in_bias (32);
+    Halide::Buffer<float> outputBuf;
+    Halide::Buffer<float> outputBufNaive;
+    int i,j,l,s;
+
+    // bias init 
+    for(i=0; i<in_bias.dim(0).extent(); i++) {
+    in_bias(i) = 1 + rand() % (( 255 + 1 ) - 1);    
+    }
+
+    // img init 
+    for(i=0; i<in_img.dim(0).extent(); i++) {
+    for(j=0; j<in_img.dim(1).extent(); j++) {
+    for(l=0; l<in_img.dim(2).extent(); l++) {
+    for(s=0; s<in_img.dim(3).extent(); s++) {
+      in_img(i,j,l,s)=1 + rand() % (( 255 + 1 ) - 1);
+    }
+    }    
+    }    
+    }
+    // init filter
+    for(i=0; i<in_filter.dim(0).extent(); i++) {
+    for(j=0; j<in_filter.dim(1).extent(); j++) {
+    for(l=0; l<in_filter.dim(2).extent(); l++) {
+    for(s=0; s<in_filter.dim(3).extent(); s++) {
+      in_filter(i,j,l,s)=1 + rand() % (( 255 + 1 ) - 1);
+    }
+    }    
+    }    
+    }
+    
+    Var x("x"), y("y"), c("c"), z("z"), n("n");
+    bias(z) = in_bias(z);
+    infilter(x,y,c,z) = in_filter(x,y,c,z);
+    input(x,y,c,n) = in_img(x,y,c,n);
+    conv(x,y,z,n) = bias(z);   
+    Halide::RDom r(0,5 ,0, 5, 0, 16);
+    conv(x,y,z,n) =  Halide::cast<float>(conv(x,y,z,n) + infilter(r.x,r.y,r.z,z)*input(x + r.x, y + r.y, r.z,n)); 
+    relu(x,y,z,n) = Halide::max(0,conv(x,y,z,n));
+    {
+        std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((relu).function());
+        outputBufNaive=_autotune_timing_stub(relu, true);
+    }
+    {
+        std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((relu).function());
+        
+         Var xi("xi");
+         Var xo("xo");
+         Var yi("yi");
+         Var yo("yo");
+         Var zi("zi");
+         Var zo("zo");
+         Var ni("ni");
+         Var no("no");
+         RVar rxi("rxi");
+         RVar rxo("rxo");
+         RVar ryi("ryi");
+         RVar ryo("ryo");
+         RVar rzi("rzi");
+         RVar rzo("rzo");
+         Var noni$("noni$");
+         conv.tile(x, y ,xo, yo ,xi, yi, 32, 32);
+         conv.update(0).tile(x, y ,xo, yo ,xi, yi, 32, 32);
+         conv.split(z, zo , zi ,16);
+         conv.split(n, no , ni ,16);
+         conv.update(0).split(r.x, rxo , rxi ,2);
+         conv.update(0).split(r.y, ryo , ryi ,2);
+         conv.update(0).split(r.z, rzo , rzi ,8);
+         conv.update(0).split(z, zo , zi ,16);
+         conv.update(0).split(n, no , ni ,16);
+         relu.split(x, xo , xi ,32);
+         relu.split(y, yo , yi ,32);
+         relu.split(z, zo , zi ,16);
+         relu.split(n, no , ni ,16);
+        conv.reorder(xi,xo,yi,yo,zi,zo,ni,no);
+        conv.update(0).reorder(rxi,rxo,ryi,ryo,rzi,rzo,xi,xo,yi,yo,zi,zo,ni,no);
+        relu.reorder(xi,xo,yi,yo,zi,zo,ni,no);conv.fuse(no, ni , noni$);conv.update(0).fuse(no, ni , noni$);relu.fuse(no, ni , noni$);conv.parallel(noni$);conv.update(0).parallel(noni$);relu.parallel(noni$);conv.vectorize(xi);conv.update(0).vectorize(xi);relu.vectorize(xi);conv.update(0).unroll(rxi);conv.compute_at(relu,xi);conv.store_at(relu,xo);        
+        outputBuf=_autotune_timing_stub(relu, false);
+    } 
+    ;
+    // the schedule
+    BASELINE_HOOK(relu);
+    
+    // test the validity of the schedule 
+    bool scheduleValide = true;
+    for(i=0; i<outputBuf.dim(0).extent(); i++) {
+    for(j=0; j<outputBuf.dim(1).extent(); j++) {
+    for(l=0; l<outputBuf.dim(2).extent(); l++) {
+    for(s=0; s<outputBuf.dim(3).extent(); s++) {
+      if (outputBuf(i,j,l,s) != outputBufNaive(i,j,l,s)) {
+         scheduleValide = false; 
+         exit(-1);
+        }
+    }
+    }    
+    }    
+    } 
+    if (scheduleValide == true){
+      exit(0);
+    }   
+    return 0;
+}

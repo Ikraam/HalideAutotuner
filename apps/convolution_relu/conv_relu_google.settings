@@ -1,0 +1,15 @@
+{"output_size": "128, 128, 64, 4",
+ "name_program": "convolution_relu_google", 
+ "output_type": "float",
+ "RVars" : ["r.x","r.y","r.z"],
+ "functions": [ 
+               {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 131}, {"y": 131}, {"c" :64}, {"n": 4}], "calls": []},
+               {"name": "infilter", "vars": ["x", "y","c","z"], "estime":[{"x" : 3}, {"y" : 3},{"c" : 64},{"z": 64}], "calls": []},
+	       {"name": "bias", "vars": ["z"], "estime":[{"z" : 64}], "calls": []},
+               {"name": "conv", "vars": ["x", "y","z","n"], "estime":[{"x" : 128}, {"y" : 128},{"z" : 64},{"n": 4}], "calls": ["bias"],  "legal_vectorize": "x", "instruction":"conv(x,y,z,n)=bias(z)","reuse":["x","y"]}, 
+               {"name": "conv.update(0)", "vars": ["r.x","r.y","r.z","x", "y","z","n"], "estime":[{"r.x":3},{"r.y":3},{"r.z":64},{"x":128}, {"y":128},{"z":64},{"n":4}], "calls": ["input", "infilter"], "instruction":"conv(x,y,z,n)=conv(x,y,z,n)+input(x+r.x,y+r.y,r.z,n)*infilter(r.x,r.y,r.z,z)", "legal_vectorize": "x","reuse":["x","y"]},
+               {"name": "relu", "vars": ["x","y","z","n"], "estime":[{"x":128}, {"y":128},{"z":64},{"n":4}], "calls": ["conv"], "instruction":"relu(x,y,z,n)=conv(x,y,z,n)", "legal_vectorize": "x","reuse":[]}
+
+
+]}
+             
