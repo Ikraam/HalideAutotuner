@@ -1,12 +1,3 @@
-import OptimizationGenerator
-from OptimizationGenerator import OptimizationGenerator
-from FuseOptimizationGenerator import FuseOptimizationGenerator
-import Schedule
-from Schedule import *
-import math
-import Program
-from Program import *
-import settings
 from settings import *
 
 
@@ -38,8 +29,8 @@ class ReorderOptimizationGenerator(OptimizationGenerator):
                                                                               index_order_optimization+1, \
                                                                                 order_optimization)'''
 
-          settings.append_and_explore(schedule, program, id_program, set_restrictions,index_order_optimization,\
-                                  order_optimization)
+          settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization, \
+                                            order_optimization)
           print schedule
           return schedule
       else :

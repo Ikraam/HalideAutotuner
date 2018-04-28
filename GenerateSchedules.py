@@ -1,27 +1,6 @@
 import hashlib
-import Schedule
-import StorageManager
 import Machine
-from Schedule import *
-import TileOptimizationGenerator
-import SplitOptimizationGenerator
-import ReorderOptimizationGenerator
-from TileOptimizationGenerator import *
-from SplitOptimizationGenerator import *
-from ReorderOptimizationGenerator import *
-import FuseOptimizationGenerator
-from FuseOptimizationGenerator import *
-import ParallelOptimizationGenerator
-from ParallelOptimizationGenerator import *
-import ComputeAtOptimizationGenerator
-from ComputeAtOptimizationGenerator import *
-import Program
-from Program import *
-import logging
-import argparse
-import os
-import settings
-from settings import *
+from GenerationOfOptimizations.settings import *
 
 
 
@@ -99,9 +78,7 @@ def order_generation_optimizations():
 def generate_exhaustive_schedules(program, args, order_optimizations):
     schedule = Schedule(list(), args)
     id_program = hashlib.md5(str(program)).hexdigest()
-    append_and_explore(schedule, program, id_program,list(),0,order_optimizations)
-
-
+    append_and_explore_optim(schedule, program, id_program, list(), 0, order_optimizations)
 
 
 def main(args):

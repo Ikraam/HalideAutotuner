@@ -1,8 +1,5 @@
-import OptimizationGenerator
-from OptimizationGenerator import *
-import Schedule
+from GenerationOfOptimizations.OptimizationGenerator import *
 from Schedule import *
-import Program
 from Program import *
 import math
 
@@ -27,8 +24,8 @@ class TileOptimizationGenerator(OptimizationGenerator):
      # If we have a valid schedule which contains only tile optimizations
      if len(schedule.optimizations) == index:
         # append next optimizations and explore them
-        settings.append_and_explore(schedule, program, idProgram, setRestrictions,index_order_optimization,\
-                                  order_optimization)
+        settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization, \
+                                          order_optimization)
 
         return schedule
 

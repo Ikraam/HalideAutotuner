@@ -1,10 +1,3 @@
-import OptimizationGenerator
-from OptimizationGenerator import *
-import Schedule
-from Schedule import ParallelOptimization, VectorizeOptimization, UnrollOptimization, TileOptimization, SplitOptimization, ComputeAtOptimization
-import ComputeAtOptimizationGenerator
-from ComputeAtOptimizationGenerator import ComputeAtOptimizationGenerator
-import settings
 from settings import *
 
 
@@ -16,8 +9,8 @@ class ParallelOptimizationGenerator(OptimizationGenerator):
    def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
                               index_order_optimization, order_optimization):
      if index == len(schedule.optimizations):
-          settings.append_and_explore(schedule, program, idProgram, setRestrictions, index_order_optimization,
-                                                                                     order_optimization)
+          settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization,
+                                            order_optimization)
           return schedule
 
      else :
@@ -45,8 +38,8 @@ class VectorizeOptimizationGenerator(OptimizationGenerator):
     def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
                               index_order_optimization, order_optimization):
        if index == len(schedule.optimizations):
-          settings.append_and_explore(schedule, program, idProgram, setRestrictions, index_order_optimization,
-                                                                                     order_optimization)
+          settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization,
+                                            order_optimization)
           return schedule
        else :
           if isinstance(schedule.optimizations[index], VectorizeOptimization):
@@ -127,8 +120,8 @@ class UnrollOptimizationGenerator(OptimizationGenerator):
                               index_order_optimization, order_optimization):
 
         if index == len(schedule.optimizations):
-            settings.append_and_explore(schedule, program, idProgram, setRestrictions, index_order_optimization,
-                                                                                     order_optimization)
+            settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization,
+                                              order_optimization)
             return schedule
 
         else :

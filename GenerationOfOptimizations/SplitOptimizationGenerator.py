@@ -1,16 +1,11 @@
-import OptimizationGenerator
-from OptimizationGenerator import OptimizationGenerator
 import settings
 from settings import *
-import Schedule
 from Schedule import *
 import math
-import Program
 from Program import *
+from GenerationOfOptimizations.OptimizationGenerator import *
 
 class SplitOptimizationGenerator(OptimizationGenerator):
-
-
 
   @staticmethod
   def update_optim__after_split(optimizations, func, var, split_factor, index, elemSupp, program, setRestrictions):
@@ -101,8 +96,8 @@ class SplitOptimizationGenerator(OptimizationGenerator):
 
     # If we have a valid schedule which contains only split optimizations
     if len(schedule.optimizations) == index:
-      settings.append_and_explore(schedule, program, idProgram, setRestrictions,index_order_optimization,\
-                                  order_optimization)
+      settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization, \
+                                        order_optimization)
       return schedule
 
     else:
