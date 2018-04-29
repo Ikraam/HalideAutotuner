@@ -74,20 +74,20 @@ class StorageManager():
 
 
     # Store schedule into the database
-    def store_schedule(self, schedule, error, idProgram, timeOfSchedule):
+    def store_schedule(self, schedule, error, idProgram, time_of_schedule):
         '''
         :param schedule: the schedule that we want to store
         :param error: the error that we get once we execute the schedule
         :param idProgram:
-        :param timeOfSchedule:
+        :param time_of_schedule:
         :return: idSchedule
         '''
         insert = False
         modify = False
 
-        # Set timeOfSchedule to Infinity
-        if timeOfSchedule == None :
-            timeOfSchedule = float('inf')
+        # Set time_of_schedule to Infinity
+        if time_of_schedule == None :
+            time_of_schedule = float('inf')
 
         # Set the id of schedule to hash(schedule)
         idOfSchedule = hashlib.md5(str(schedule)+idProgram).hexdigest()
@@ -99,7 +99,7 @@ class StorageManager():
                 # Initialize a document to store our schedule
                 result2=self.db.schedule.insert_one({"_id": idOfSchedule,"id_program":idProgram, "split":[], "vectorize":[], "unroll":[], "parallel":[]
                                          , "reorder":[], "reorder_storage":[], "fuse":[], "compute_at":[], "store_at":[], "compute_root":[]
-                                         ,"store_root":[], "time": timeOfSchedule, "error":error})
+                                         ,"store_root":[], "time": time_of_schedule, "error":error})
                 # resultn contains the idOfSchedule
                 resultn = result2.inserted_id
                 insert = True
@@ -111,14 +111,14 @@ class StorageManager():
                 insert = False
         else :
             # If we have already 1 million schedule in the database, we must replace the worstSchedule with the current schedule
-            worstCase = list(self.db.schedule.find().sort([('time',-1)]).limit(1))
-            for elem in worstCase :
+            worst_case = list(self.db.schedule.find().sort([('time',-1)]).limit(1))
+            for elem in worst_case :
                 for key in elem.keys():
                     if key == "time":
-                        worstTime = elem[key]
+                        worst_time = elem[key]
             # Check if the Worst Schedule is worst than the current one
-            if worstTime > timeOfSchedule :
-                for elem in worstCase :
+            if worst_time > time_of_schedule :
+                for elem in worst_case :
                     for key in elem.keys():
                         if key == "_id":
                             resultn = elem[key]
@@ -134,12 +134,12 @@ class StorageManager():
                     if optim.split_factor > 1 :
                         # name = name of the current function
                         name = optim.func.name_function
-                        varSplitted = optim.variable.name_var
-                        varOuter = optim.variable.name_var+'o'
-                        varInner = optim.variable.name_var+'i'
+                        var_splitted = optim.variable.name_var
+                        var_outer = optim.variable.name_var+'o'
+                        var_inner = optim.variable.name_var+'i'
                         factor = optim.split_factor
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "split" :{"func":name, "varSplitted": varSplitted,
-                                                                                           "varInner": varInner, "varOuter":varOuter, "factor":factor}}})
+                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "split" :{"func":name, "var_splitted": var_splitted,
+                                                                                           "var_inner": var_inner, "var_outer":var_outer, "factor":factor}}})
                 # If we are on FuseOptimization
                 if isinstance(optim, FuseOptimization):
                     if optim.enable  :
@@ -155,10 +155,10 @@ class StorageManager():
                 if isinstance(optim, ReorderOptimization):
                     if len(optim.variables) != 0 :
                         name = optim.func.name_function
-                        varOfReorder = list()
+                        var_of_reorder = list()
                         for var in optim.variables :
-                            varOfReorder.append(var.name_var)
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "reorder" :{"func":name, "reorder":varOfReorder}}})
+                            var_of_reorder.append(var.name_var)
+                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "reorder" :{"func":name, "reorder":var_of_reorder}}})
 
                 # If we are on ComputeAtOptimization
                 if isinstance(optim, ComputeAtOptimization) :
@@ -213,7 +213,7 @@ class StorageManager():
 
     # Find the best schedule for the program with the id : idProgram
     def find_best_schedule(self, idProgram):
-        BestCase = list(self.db.schedule.find({"id_program":idProgram, "error":None}).sort([('time',1)]).limit(1))
-        print json.dumps(BestCase[0], indent=4, sort_keys=True)
+        best_case = list(self.db.schedule.find({"id_program":idProgram, "error":None}).sort([('time',1)]).limit(1))
+        print json.dumps(best_case[0], indent=4, sort_keys=True)
 
 

@@ -62,7 +62,9 @@ group.add_argument('--make-settings-file', action='store_true',
                    help='Create a skeleton settings file from call graph')
 
 
-def order_generation_optimizations():
+
+
+def generate_exhaustive_schedules(program, args):
     order_optimizations = list()
     order_optimizations.append("Tile")
     order_optimizations.append("Split")
@@ -73,9 +75,6 @@ def order_generation_optimizations():
     order_optimizations.append("Unroll")
     order_optimizations.append("Compute_At")
     order_optimizations.append("Store_At")
-    return order_optimizations
-
-def generate_exhaustive_schedules(program, args, order_optimizations):
     schedule = Schedule(list(), args)
     id_program = hashlib.md5(str(program)).hexdigest()
     append_and_explore_optim(schedule, program, id_program, list(), 0, order_optimizations)
@@ -94,10 +93,8 @@ def main(args):
     idOfMachine = storage.store_machine(machine)
     ''' store program's characteristics'''
     storage.store_program(id_program, settings, idOfMachine)
-    ''' get the order in which th optimizations are generated '''
-    order_optimizations = order_generation_optimizations()
     ''' lunch the exhaustive search algorithm '''
-    generate_exhaustive_schedules(program, args, order_optimizations)
+    generate_exhaustive_schedules(program, args)
 
 
 
