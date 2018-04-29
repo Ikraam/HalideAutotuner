@@ -1,23 +1,25 @@
-import TileOptimizationGenerator as TOG
-from TileOptimizationGenerator import *
 import SplitOptimizationGenerator as SOG
 from SplitOptimizationGenerator import *
-import ParallelOptimizationGenerator as POG
-from ParallelOptimizationGenerator import *
-import ReorderOptimizationGenerator as ROG
-from ReorderOptimizationGenerator import *
-import ComputeAtOptimizationGenerator as COG
-from ComputeAtOptimizationGenerator import *
-import FuseOptimizationGenerator as FOG
-from FuseOptimizationGenerator import *
-import Schedule
+import TileOptimizationGenerator as TOG
+from TileOptimizationGenerator import *
+import ParallelOptimizationGenerator as POG, \
+    ReorderOptimizationGenerator as ROG, \
+    FuseOptimizationGenerator as FOG, \
+    ComputeAtOptimizationGenerator as COG
 from Schedule import *
+import ScheduleExecution
+from ScheduleExecution import *
 
 
 
-def append_and_explore(schedule, program, idProgram, set_restrictions,\
-                       index_order_optimization, order_optimizations):
-
+def append_and_explore_optim(schedule, program, idProgram, set_restrictions, \
+                             index_order_optimization, order_optimizations):
+  if index_order_optimization == len(order_optimizations) :
+       print schedule
+       sched_exec = ScheduleExecution(program.args, 1000)
+       time = sched_exec.test_schedule(schedule, idProgram)
+       print time
+  else :
     if order_optimizations[index_order_optimization] == 'Split' :
        new_program = ROG.ReorderOptimizationGenerator.update_program_after_reorder(program, schedule)
        new_schedule = SplitOptimization.append_optimizations(schedule, new_program, set_restrictions)

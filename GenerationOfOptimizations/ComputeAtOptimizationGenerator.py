@@ -1,11 +1,3 @@
-import OptimizationGenerator
-from OptimizationGenerator import *
-import Schedule
-import Program
-from Program import Variable
-import ScheduleExecution
-from ScheduleExecution import ScheduleExecution
-import settings
 from settings import *
 
 
@@ -16,10 +8,8 @@ class StoreAtOptimizationGenerator(OptimizationGenerator):
     def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
                                                   index_order_optimization, order_optimization):
         if index == len(schedule.optimizations):
-            schedule_exe = ScheduleExecution(program.args, program.args.limit)
-            time = schedule_exe.test_schedule(schedule, idProgram)
-            print schedule
-            return schedule
+            settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization \
+                                              , order_optimization)
         else :
             if isinstance(schedule.optimizations[index], StoreAtOptimization):
                 optim = schedule.optimizations[index]
@@ -66,8 +56,8 @@ class ComputeAtOptimizationGenerator(OptimizationGenerator):
     def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
                               index_order_optimization, order_optimization):
         if index == len(schedule.optimizations):
-            settings.append_and_explore(schedule, program, idProgram, setRestrictions, index_order_optimization,
-                                                                                     order_optimization)
+            settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization,
+                                              order_optimization)
             return schedule
         else :
             if isinstance(schedule.optimizations[index],ComputeAtOptimization):

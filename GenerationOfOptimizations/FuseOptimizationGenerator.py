@@ -1,13 +1,7 @@
-import OptimizationGenerator
-from OptimizationGenerator import *
-import ParallelOptimizationGenerator
-from ParallelOptimizationGenerator import *
-import Schedule
 from Schedule import *
-import Program
-from Program import *
 import settings
-from settings import *
+from GenerationOfOptimizations.OptimizationGenerator import *
+
 
 class FuseOptimizationGenerator(OptimizationGenerator):
 
@@ -24,8 +18,8 @@ class FuseOptimizationGenerator(OptimizationGenerator):
       """
 
       if index == len(schedule.optimizations) :
-          settings.append_and_explore(schedule, program,idProgram, setRestrictions, index_order_optimization\
-                                                                                    ,order_optimization)
+          settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization \
+                                            , order_optimization)
 
           return schedule
       else:

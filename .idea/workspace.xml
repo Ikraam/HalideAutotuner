@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="135157d7-ecdb-40ac-8b2d-c04abb599e3c" name="Default" comment="" />
+    <list default="true" id="135157d7-ecdb-40ac-8b2d-c04abb599e3c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/GenerateSchedules.py" afterPath="$PROJECT_DIR$/GenerateSchedules.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" />
+      <change beforePath="$PROJECT_DIR$/ScheduleExecution.py" afterPath="$PROJECT_DIR$/ScheduleExecution.py" />
+      <change beforePath="$PROJECT_DIR$/StorageManager.py" afterPath="$PROJECT_DIR$/StorageManager.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,37 +18,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Schedule.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Schedule.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="626" column="33" lean-forward="false" selection-start-line="626" selection-start-column="33" selection-end-line="626" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ComputeAtOptimizationGenerator.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ComputeAtOptimizationGenerator.py">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="360">
+              <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ParallelOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ParallelOptimizationGenerator.py">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="130" column="104" lean-forward="true" selection-start-line="129" selection-start-column="12" selection-end-line="130" selection-end-column="104" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
+                <marker date="1524936888479" expanded="true" signature="0:22" ph="import ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TileOptimizationGenerator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24">
+              <caret line="87" column="4" lean-forward="true" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#61#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,8 +55,8 @@
       <file leaf-file-name="ScheduleExecution.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ScheduleExecution.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
+            <state relative-caret-position="855">
+              <caret line="423" column="0" lean-forward="true" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -59,37 +64,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainSearch.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainSearch.py">
+      <file leaf-file-name="GenerateSchedules.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="857">
-              <caret line="129" column="0" lean-forward="true" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+            <state relative-caret-position="855">
+              <caret line="96" column="38" lean-forward="true" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="100" column="3" lean-forward="true" selection-start-line="100" selection-start-column="3" selection-end-line="100" selection-end-column="3" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FuseOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FuseOptimizationGenerator.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,33 +79,55 @@
       <file leaf-file-name="StorageManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StorageManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="857">
-              <caret line="59" column="56" lean-forward="false" selection-start-line="59" selection-start-column="56" selection-end-line="59" selection-end-column="56" />
+            <state relative-caret-position="216">
+              <caret line="16" column="52" lean-forward="true" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplitOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SplitOptimizationGenerator.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="103" column="6" lean-forward="false" selection-start-line="103" selection-start-column="6" selection-end-line="104" selection-end-column="53" />
+            <state relative-caret-position="855">
+              <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FuseOptimizationGenerator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="21" selection-end-column="65" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SplitOptimizationGenerator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="13" column="21" lean-forward="false" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ReorderOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ReorderOptimizationGenerator.py">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="857">
-              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -172,23 +175,33 @@
       <find>class S</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Machine.py" />
         <option value="$PROJECT_DIR$/OptimizationGenerator.py" />
         <option value="$PROJECT_DIR$/Program.py" />
-        <option value="$PROJECT_DIR$/ScheduleExecution.py" />
-        <option value="$PROJECT_DIR$/StorageManager.py" />
         <option value="$PROJECT_DIR$/TileOptimizationGenerator.py" />
         <option value="$PROJECT_DIR$/SplitOptimizationGenerator.py" />
         <option value="$PROJECT_DIR$/ReorderOptimizationGenerator.py" />
         <option value="$PROJECT_DIR$/FuseOptimizationGenerator.py" />
         <option value="$PROJECT_DIR$/ParallelOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/settings.py" />
-        <option value="$PROJECT_DIR$/Schedule.py" />
         <option value="$PROJECT_DIR$/ComputeAtOptimizationGenerator.py" />
         <option value="$PROJECT_DIR$/MainSearch.py" />
+        <option value="$PROJECT_DIR$/Schedule.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/ScheduleExecution.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/settings.py" />
+        <option value="$PROJECT_DIR$/GenerateSchedules.py" />
+        <option value="$PROJECT_DIR$/StorageManager.py" />
       </list>
     </option>
   </component>
@@ -213,7 +226,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -230,10 +242,16 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/GenerationOfOptimizations" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -254,12 +272,13 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="996" y="24" width="1849" height="1092" extended-state="6" />
+    <frame x="73" y="-4" width="1847" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -268,7 +287,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -280,15 +298,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TileOptimizationGenerator.py</url>
+          <url>file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py</url>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py</url>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/OptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/OptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -296,34 +318,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TileOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="16" column="29" lean-forward="true" selection-start-line="16" selection-start-column="29" selection-end-line="17" selection-end-column="75" />
           <folding>
-            <element signature="e#0#28#0" expanded="false" />
+            <element signature="e#0#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SplitOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2664">
           <caret line="119" column="56" lean-forward="true" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FuseOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2328">
           <caret line="102" column="61" lean-forward="false" selection-start-line="102" selection-start-column="61" selection-end-line="102" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainSearch.py">
+    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1944">
           <caret line="94" column="13" lean-forward="false" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
@@ -347,13 +369,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ReorderOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -374,7 +394,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/OptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -382,17 +402,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TileOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4752">
           <caret line="204" column="106" lean-forward="false" selection-start-line="204" selection-start-column="106" selection-end-line="204" selection-end-column="106" />
           <folding>
-            <element signature="e#0#28#0" expanded="false" />
+            <element signature="e#0#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainSearch.py">
+    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1776">
           <caret line="87" column="56" lean-forward="false" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
@@ -402,12 +422,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SplitOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1872">
           <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -451,27 +471,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TileOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4752">
           <caret line="204" column="106" lean-forward="false" selection-start-line="204" selection-start-column="106" selection-end-line="204" selection-end-column="106" />
           <folding>
-            <element signature="e#0#28#0" expanded="false" />
+            <element signature="e#0#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SplitOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1872">
           <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainSearch.py">
+    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1776">
           <caret line="87" column="56" lean-forward="true" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
@@ -513,7 +533,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/OptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -521,22 +541,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TileOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4752">
           <caret line="204" column="106" lean-forward="false" selection-start-line="204" selection-start-column="106" selection-end-line="204" selection-end-column="106" />
           <folding>
-            <element signature="e#0#28#0" expanded="false" />
+            <element signature="e#0#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SplitOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1872">
           <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -556,7 +576,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainSearch.py">
+    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2088">
           <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
@@ -611,7 +631,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/OptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -626,111 +646,107 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StorageManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="857">
-          <caret line="59" column="56" lean-forward="false" selection-start-line="59" selection-start-column="56" selection-end-line="59" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ScheduleExecution.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TileOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="30" column="53" lean-forward="true" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#28#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ReorderOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="857">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SplitOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="103" column="6" lean-forward="false" selection-start-line="103" selection-start-column="6" selection-end-line="104" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FuseOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="100" column="3" lean-forward="true" selection-start-line="100" selection-start-column="3" selection-end-line="100" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ParallelOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="130" column="104" lean-forward="true" selection-start-line="129" selection-start-column="12" selection-end-line="130" selection-end-column="104" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Schedule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="626" column="33" lean-forward="false" selection-start-line="626" selection-start-column="33" selection-end-line="626" selection-end-column="33" />
+        <state relative-caret-position="360">
+          <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainSearch.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="857">
-          <caret line="129" column="0" lean-forward="true" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="21" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="13" column="21" lean-forward="false" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ScheduleExecution.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="423" column="0" lean-forward="true" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="87" column="4" lean-forward="true" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1524936888479" expanded="true" signature="0:22" ph="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="96" column="38" lean-forward="true" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ComputeAtOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/StorageManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="16" column="52" lean-forward="true" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -160,7 +160,7 @@ class ScheduleExecution():
        with our timing harness found in timing_prefix.h.
        """
        return self.run_source(self.schedule_to_source(\
-           ScheduleExecution.schedule_to_sourceSchedule(schedule)), limit)
+           ScheduleExecution.schedule_to_source_schedule(schedule)), limit)
 
 
 
@@ -188,7 +188,7 @@ class ScheduleExecution():
 
 
   @staticmethod
-  def schedule_to_sourceSchedule(schedule):
+  def schedule_to_source_schedule(schedule):
       '''
 
       :return: schedule that can be inserted to the input program
@@ -277,20 +277,20 @@ class ScheduleExecution():
               if optim.enable == True :
                   # if one of the variables is of type RVar
                   if optim.variable1.type_of_var() == 'RVar':
-                      nameFusedVar = optim.fused_var.name_var
-                      for char in nameFusedVar :
+                      name_fused_var = optim.fused_var.name_var
+                      for char in name_fused_var :
                           if char == '.' :
-                              nameFusedVar = nameFusedVar.replace(char,'')
-                      if nameFusedVar not in declared_r_var :
-                        declared_r_var.append(nameFusedVar)
-                        declared_vars_to_schedule = declared_vars_to_schedule +"\n RVar {}(\"{}\");".format(nameFusedVar,nameFusedVar)
+                              name_fused_var = name_fused_var.replace(char,'')
+                      if name_fused_var not in declared_r_var :
+                        declared_r_var.append(name_fused_var)
+                        declared_vars_to_schedule = declared_vars_to_schedule +"\n RVar {}(\"{}\");".format(name_fused_var,name_fused_var)
                   else :
-                      nameFusedVar = optim.fused_var.name_var
-                      if nameFusedVar not in declared_var :
-                        declared_var.append(nameFusedVar)
-                        declared_vars_to_schedule = declared_vars_to_schedule +"\n Var {}(\"{}\");".format(nameFusedVar,nameFusedVar)
-      declared_vars_to_schedule=declared_vars_to_schedule+str(schedule)
-      return declared_vars_to_schedule
+                      name_fused_var = optim.fused_var.name_var
+                      if name_fused_var not in declared_var :
+                        declared_var.append(name_fused_var)
+                        declared_vars_to_schedule = declared_vars_to_schedule +"\n Var {}(\"{}\");".format(name_fused_var,name_fused_var)
+      source_schedule=declared_vars_to_schedule+str(schedule)
+      return source_schedule
 
 
 
