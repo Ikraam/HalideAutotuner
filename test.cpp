@@ -183,129 +183,102 @@ using namespace Halide;
 int main(int argc, char **argv) {
 
 
-    // This code is a test code for the convolution
-    Var i("i"), j("j");
-    //Var ti[3], tj[3];
-    
-    const int sum_size = 400; // shared dimension between A and B 
-
-        // Swizzle A for better memory order in the inner loop.
-    Func A("A"), B("B"), Btmp("Btmp"), As("As"), Atmp("Atmp");
-    Var k("k"), c("c"),z("z");
-    Func prod("prod");
-    Func result_("result_");
-    Func AB("AB");
-    RDom rv(0, 400);
-
-    Halide::Buffer<float> A_ (8,400,20);
-    Halide::Buffer<float> B_ (400,4096,20);
-    Halide::Buffer<float> D_ (8,4096,20);
+    // This code is a test code for the convolution 
+    Func conv("conv");
+    Func input("input");
+    Func infilter("infilter");
+    Func bias("bias");
+    Func relu("relu");
+    Halide::Buffer<float> in_img (131,131,64,4);
+    Halide::Buffer<float> in_filter (3,3,64,64);
+    Halide::Buffer<float> in_bias (64);
     Halide::Buffer<float> outputBuf;
     Halide::Buffer<float> outputBufNaive;
-    int m,n,l;
+    int i,j,l,s;
 
+    // bias init 
+    for(i=0; i<in_bias.dim(0).extent(); i++) {
+    in_bias(i) = 1 + rand() % (( 255 + 1 ) - 1);    
+    }
 
     // img init 
-    for(m=0; m<A_.dim(0).extent(); m++) {
-    for(n=0; n<A_.dim(1).extent(); n++) {
-    for(l=0; l<A_.dim(2).extent(); l++) {
-      A_(m,n,l)=2;    
+    for(i=0; i<in_img.dim(0).extent(); i++) {
+    for(j=0; j<in_img.dim(1).extent(); j++) {
+    for(l=0; l<in_img.dim(2).extent(); l++) {
+    for(s=0; s<in_img.dim(3).extent(); s++) {
+      in_img(i,j,l,s)=1 + rand() % (( 255 + 1 ) - 1);
+    }
+    }    
     }    
     }
+    // init filter
+    for(i=0; i<in_filter.dim(0).extent(); i++) {
+    for(j=0; j<in_filter.dim(1).extent(); j++) {
+    for(l=0; l<in_filter.dim(2).extent(); l++) {
+    for(s=0; s<in_filter.dim(3).extent(); s++) {
+      in_filter(i,j,l,s)=1 + rand() % (( 255 + 1 ) - 1);
+    }
+    }    
+    }    
     }
     
-    for(m=0; m<B_.dim(0).extent(); m++) {
-    for(n=0; n<B_.dim(1).extent(); n++) {
-    for(l=0; l<B_.dim(2).extent(); l++) {
-      B_(m,n,l)=1; 
-    }   
-    }    
-    }
-
-    for(m=0; m<D_.dim(0).extent(); m++) {
-    for(n=0; n<D_.dim(1).extent(); n++) {
-    for(l=0; l<D_.dim(2).extent(); l++) {
-      D_(m,n,l)=1 + rand() % (( 255 + 1 ) - 1);   
-      D_(m,n,l) = 0; 
-    }
-    }    
-    }
-
-    Func C_("C_");
-    C_(i,j,c) = D_(i,j,c);
-    AB(i,j,c) = D_(i,j,c);
-    Atmp(i, j, c) = A_(i, j, c);  
-    As(i, j, z, c) = Atmp(2*z + i, j,c);
-    A(i, j, c) = As(i % 2, j, i / 2,c);
-    Btmp(i, j, c) = B_(i, j, c);
-    B(i, j, c) = Btmp(i, j, c);
-    
-    // Express all the products we need to do a matrix multiply as a 3D Func.
-    prod(k, i, j, c) = A(i, k, c) * B(k, j, c);
-    // Reduce the products along k.
-    AB(i, j, c) += prod(rv, i, j, c);
-    // Do the part that makes it a 'general' matrix multiply.
-    result_(i, j, c) = AB(i, j, c);
+    Var x("x"), y("y"), c("c"), z("z"), n("n");
+    bias(z) = in_bias(z);
+    infilter(x,y,c,z) = in_filter(x,y,c,z);
+    input(x,y,c,n) = in_img(x,y,c,n);
+    conv(x,y,z,n) = bias(z);   
+    Halide::RDom r(0,3 ,0, 3, 0, 64);
+    conv(x,y,z,n) =  Halide::cast<float>(conv(x,y,z,n) + infilter(r.x,r.y,r.z,z)*input(x + r.x, y + r.y, r.z,n)); 
+    relu(x,y,z,n) = Halide::max(0,conv(x,y,z,n));
     {
-        std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((result_).function());
-        outputBufNaive=_autotune_timing_stub(result_, true);
+        std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((relu).function());
+        outputBufNaive=_autotune_timing_stub(relu, true);
     }
     {
-        std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((result_).function());
+        std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((relu).function());
         
-         Var ii("ii");
-         Var io("io");
-         Var ji("ji");
-         Var jo("jo");
+         Var xi("xi");
+         Var xo("xo");
+         Var yi("yi");
+         Var yo("yo");
          Var zi("zi");
          Var zo("zo");
-         Var ci("ci");
-         Var co("co");
-         Var ki("ki");
-         Var ko("ko");
-         RVar rvi("rvi");
-         RVar rvo("rvo");
-         Var coci$("coci$");
-         prod.tile(i, j ,io, jo ,ii, ji, 4, 2048);
-         As.split(j, jo , ji ,128);
-         As.split(z, zo , zi ,2);
-         As.split(c, co , ci ,8);
-         A.split(i, io , ii ,4);
-         A.split(j, jo , ji ,128);
-         A.split(c, co , ci ,8);
-         B.split(i, io , ii ,128);
-         B.split(j, jo , ji ,2048);
-         B.split(c, co , ci ,8);
-         prod.split(k, ko , ki ,128);
-         prod.split(c, co , ci ,8);
-         AB.update(0).split(i, io , ii ,4);
-         AB.update(0).split(j, jo , ji ,2048);
-         AB.update(0).split(rv, rvo , rvi ,128);
-         AB.update(0).split(c, co , ci ,8);
-         result_.split(i, io , ii ,4);
-         result_.split(j, jo , ji ,2048);
-         result_.split(c, co , ci ,8);
-        As.reorder(i,ji,jo,zi,zo,ci,co);
-        A.reorder(ii,io,ji,jo,ci,co);
-        B.reorder(ii,io,ji,jo,ci,co);
-        prod.reorder(ki,ko,ii,io,ji,jo,ci,co);
-        AB.update(0).reorder(ii,io,ji,jo,rvi,rvo,ci,co);
-        result_.reorder(ii,io,ji,jo,ci,co);As.fuse(co, ci , coci$);A.fuse(co, ci , coci$);B.fuse(co, ci , coci$);prod.fuse(co, ci , coci$);AB.update(0).fuse(co, ci , coci$);result_.fuse(co, ci , coci$);As.parallel(coci$);A.parallel(coci$);B.parallel(coci$);prod.parallel(coci$);AB.update(0).parallel(coci$);result_.parallel(coci$);A.vectorize(ii);B.vectorize(ii);prod.vectorize(ki);AB.update(0).vectorize(ii);result_.vectorize(ii);As.unroll(ji);As.compute_at(A,ii);A.compute_at(prod,ki);B.compute_at(prod,ki);prod.compute_at(AB,ii);AB.compute_at(result_,ii);As.store_at(A,ii);A.store_at(prod,ki);B.store_at(prod,ki);prod.store_at(AB,io);AB.store_root();        
-        outputBuf=_autotune_timing_stub(result_, false);
+         Var ni("ni");
+         Var no("no");
+         RVar rzi("rzi");
+         RVar rzo("rzo");
+         Var noni$("noni$");
+         conv.tile(x, y ,xo, yo ,xi, yi, 64, 64);
+         conv.update(0).tile(x, y ,xo, yo ,xi, yi, 64, 64);
+         conv.split(z, zo , zi ,32);
+         conv.split(n, no , ni ,2);
+         conv.update(0).split(r.z, rzo , rzi ,32);
+         conv.update(0).split(z, zo , zi ,32);
+         conv.update(0).split(n, no , ni ,2);
+         relu.split(x, xo , xi ,64);
+         relu.split(y, yo , yi ,64);
+         relu.split(z, zo , zi ,32);
+         relu.split(n, no , ni ,2);
+        conv.reorder(xi,xo,yi,yo,zi,zo,ni,no);
+        conv.update(0).reorder(r.x,r.y,rzi,rzo,xi,xo,yi,yo,zi,zo,ni,no);
+        relu.reorder(xi,xo,yi,yo,zi,zo,ni,no);conv.fuse(no, ni , noni$);conv.update(0).fuse(no, ni , noni$);relu.fuse(no, ni , noni$);conv.parallel(noni$);conv.update(0).parallel(noni$);relu.parallel(noni$);conv.vectorize(xi);conv.update(0).vectorize(xi);relu.vectorize(xi);conv.update(0).unroll(r.x);conv.compute_at(relu,xi);conv.store_at(relu,yi);        
+        outputBuf=_autotune_timing_stub(relu, false);
     } 
     ;
     // the schedule
-    BASELINE_HOOK(result_);
+    BASELINE_HOOK(relu);
     
     // test the validity of the schedule 
     bool scheduleValide = true;
-    for(m=0; m<outputBuf.dim(0).extent(); m++) {
-    for(n=0; n<outputBuf.dim(1).extent(); n++) {
+    for(i=0; i<outputBuf.dim(0).extent(); i++) {
+    for(j=0; j<outputBuf.dim(1).extent(); j++) {
     for(l=0; l<outputBuf.dim(2).extent(); l++) {
-      if (outputBuf(m,n,l) != outputBufNaive(m,n,l)) {
+    for(s=0; s<outputBuf.dim(3).extent(); s++) {
+      if (outputBuf(i,j,l,s) != outputBufNaive(i,j,l,s)) {
          scheduleValide = false; 
          exit(-1);
         }
+    }
     }    
     }    
     } 

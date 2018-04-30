@@ -1,6 +1,8 @@
 import abc
 import Program
 from Program import *
+import Restrictions
+from Restrictions import *
 
 class Schedule:
     def __init__(self, optimizations, args):
@@ -185,6 +187,13 @@ class SplitOptimization(Optimization):
         self.split_factor = split_factor
         # The variable of func on which we apply the split optimization
         self.variable = variable
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, SplitRestriction):
+                if (restriction.func == self.func) & (restriction.variable == self.variable):
+                    return restriction
+        return None
 
 
     def __str__(self):

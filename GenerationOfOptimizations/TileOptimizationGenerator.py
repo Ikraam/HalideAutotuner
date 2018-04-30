@@ -86,10 +86,10 @@ class TileOptimizationGenerator(OptimizationGenerator):
       '''for restriction in setRestrictions :
         if isinstance(restriction, SplitRestriction):
             if (restriction.func == func) & (restriction.variable == var) :
-                if restriction.maxNestingOfSplit == None :
+                if restriction.max_nesting_of_split == None :
                     return 0
                 else :
-                    return restriction.maxNestingOfSplit'''
+                    return restriction.max_nesting_of_split'''
 
 
     @staticmethod
