@@ -2,7 +2,9 @@ import hashlib
 import GenerationOfOptimizations.settings
 from GenerationOfOptimizations.settings import *
 import Restrictions
-from Restrictions import SplitRestriction
+from Restrictions import *
+import Schedule
+from Schedule import *
 
 def generate_schedules_heuristic_test(program, args):
     order_optimizations = list()
@@ -30,5 +32,6 @@ def define_restrictions(program):
                split_restriction = SplitRestriction(function, None, variable, 2, \
                                                     None, None, True, True)
                restrictions.append(split_restriction)
+               unroll_restriction = UnrollRestriction(function,False,True)
     return restrictions
 

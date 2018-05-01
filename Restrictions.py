@@ -1,7 +1,9 @@
 import abc
+import math
 from abc import ABCMeta
 import GenerationOfOptimizations.SplitOptimizationGenerator
-from GenerationOfOptimizations.SplitOptimizationGenerator import *
+import GenerationOfOptimizations.ParallelOptimizationGenerator
+from GenerationOfOptimizations.ParallelOptimizationGenerator import *
 
 
 # Restriction is applied to a function to not let an optimization takes all the possible combination
@@ -39,8 +41,6 @@ class SplitRestriction(Restriction):
     def restrict(self, schedule, program, index, set_restrictions, id_program, \
                                                                 index_order_optimization, \
                                                                 order_optimization):
-        print 'I am on restrict :D'
-        exit(0)
         func = self.func
         var = self.variable
         dim = self.variable.extent_var
@@ -61,32 +61,34 @@ class SplitRestriction(Restriction):
             list_values = [x for x in range(first_factor, last_factor) if x is not 0 and dim % x == 0 \
                                        and x <= last_factor//2]
 
-        if (dim >= 4) & (nesting > 0) :
+        if ((dim >= 4) & (nesting > 0)) & (self.enable == True):
               for split_factor in list_values:
                 func = self.func
                 var = self.variable
                 dim = self.variable.extent_var
-                SplitOptimizationGenerator.replace_var_split(program, func, var, split_factor)
+                GenerationOfOptimizations.SplitOptimizationGenerator.SplitOptimizationGenerator.replace_var_split(program, func, var, split_factor)
                 elemSupp = list()
-                schedule.optimizations = SplitOptimizationGenerator.update_optim__after_split(\
+                schedule.optimizations = GenerationOfOptimizations.SplitOptimizationGenerator.SplitOptimizationGenerator.update_optim__after_split(\
                     schedule.optimizations, func ,var ,split_factor,index, elemSupp, program, \
                     set_restrictions,nesting)
                 toRemember = [dim, elemSupp]
-                SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, toRemember, \
+                GenerationOfOptimizations.SplitOptimizationGenerator.SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, toRemember, \
                                                                  set_restrictions, id_program \
                                                                  , index_order_optimization, \
                                                                  order_optimization)
                 func = schedule.optimizations[index].func
                 var = schedule.optimizations[index].variable
-                SplitOptimizationGenerator.update_cfg_undo_split(schedule.optimizations, func, var, \
+                GenerationOfOptimizations.SplitOptimizationGenerator.SplitOptimizationGenerator.update_cfg_undo_split(schedule.optimizations, func, var, \
                                                                  index, toRemember[1], set_restrictions,\
                                                                  nesting)
-                SplitOptimizationGenerator.replace_var_un_split(program, func, var, toRemember[0])
+                GenerationOfOptimizations.SplitOptimizationGenerator.SplitOptimizationGenerator.replace_var_un_split(program, func, var, toRemember[0])
         else :
-              SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, None, \
+              GenerationOfOptimizations.SplitOptimizationGenerator.SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, None, \
                                                                set_restrictions, \
                                                                id_program, index_order_optimization, \
                                                                order_optimization)
+
+        return False
 
 
 
@@ -96,6 +98,31 @@ class UnrollRestriction(Restriction):
     def __init__(self, func, two_innermost, enable):
         super(UnrollRestriction, self).__init__(func, enable)
         self.two_innermost = two_innermost
+
+    def restrict(self, schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization):
+        if (self.two_innermost == True) & (self.enable == True) :
+           return True
+        else :
+            var = schedule.optimizations[index].variable
+            func = schedule.optimizations[index].func
+            [inner1, inner2] = func.two_innermost_variable_for_unroll(schedule)
+            if inner1 == var :
+              if self.enable == True :
+                schedule.optimizations[index].enable = True
+                UnrollOptimizationGenerator.explore_possibilities(schedule, index+1, program, list()\
+                                                                       , set_restrictions, id_program, \
+                                                            index_order_optimization, order_optimization)
+              schedule.optimizations[index].enable = False
+              UnrollOptimizationGenerator.explore_possibilities(schedule, index+1, program, list(), \
+                                                                  set_restrictions, id_program, \
+                              index_order_optimization, order_optimization)
+            return False
+
+
+
+
 
 
 # Vectorize Restriction is a restriction on vectorize optimization for function func

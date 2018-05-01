@@ -25,7 +25,7 @@ def append_and_explore_optim(schedule, program, idProgram, set_restrictions, \
        new_schedule = SplitOptimization.append_optimizations(schedule, new_program, set_restrictions)
        new_program = program.copy_program()
        SOG.SplitOptimizationGenerator.explore_possibilities(new_schedule,0, new_program,\
-                                                                            list(), list(),\
+                                                                            list(), set_restrictions,\
                                                                             idProgram,\
                                                                             index_order_optimization+1,\
                                                                             order_optimizations)
@@ -35,7 +35,7 @@ def append_and_explore_optim(schedule, program, idProgram, set_restrictions, \
        new_schedule = TileOptimization.append_optimizations(schedule, new_program, set_restrictions)
        new_program = program.copy_program()
        TOG.TileOptimizationGenerator.explore_possibilities(new_schedule,0, new_program,list(), \
-                                                                           list(),\
+                                                                           set_restrictions,\
                                                                            idProgram,\
                                                                            index_order_optimization+1,\
                                                                            order_optimizations)

@@ -4,10 +4,6 @@ from GenerationOfOptimizations.settings import *
 import Heuristics.Heuristic_test_restrictions
 from Heuristics.Heuristic_test_restrictions import *
 
-
-
-
-
 COMPILE_CMD = (
   '{args.cxx} "{cpp}" -o "{bin}" -I "{args.halide_dir}/include" '
   '"{args.halide_dir}/lib/libHalide.a" -ldl -lcurses -lpthread {args.cxxflags} '

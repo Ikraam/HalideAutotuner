@@ -82,22 +82,22 @@ class SplitOptimizationGenerator(OptimizationGenerator):
 
 
   @staticmethod
-  def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram,\
-                                                           index_order_optimization, order_optimization):
+  def explore_possibilities(schedule, index, program, elemSupp, set_restrictions, id_program, \
+                            index_order_optimization, order_optimization):
     '''
 
-    :param listCfg: the current list of optimizations
-    :param index: the index of the current optimization in listCfg
-    :param program: an object discribing the functions and their variables
-    :param elemSupp: the optimizations deleted once split = True
-    :param setRestrictions: restrictions applied on schedule optimizations
-    :param idProgram: the id of the current program
-    :return: a valid configuration which contains only split optimizations
-    '''
+      :param listCfg: the current list of optimizations
+      :param index: the index of the current optimization in listCfg
+      :param program: an object discribing the functions and their variables
+      :param elemSupp: the optimizations deleted once split = True
+      :param set_restrictions: restrictions applied on schedule optimizations
+      :param id_program: the id of the current program
+      :return: a valid configuration which contains only split optimizations
+      '''
 
     # If we have a valid schedule which contains only split optimizations
     if len(schedule.optimizations) == index:
-      settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization, \
+      settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization, \
                                         order_optimization)
       return schedule
 
@@ -105,17 +105,20 @@ class SplitOptimizationGenerator(OptimizationGenerator):
         # If we are on a split optimization
         if isinstance(schedule.optimizations[index],SplitOptimization) :
           # search for restrictions, if no restriction apply the default implementation
-          restriction = schedule.optimizations[index].there_are_restrictions(setRestrictions)
+          restriction = schedule.optimizations[index].there_are_restrictions(set_restrictions)
+          back_execution = True
           if restriction != None :
-              restriction.restrict()
-          else :
-            func = schedule.optimizations[index].func
-            var = schedule.optimizations[index].variable
-            dim = schedule.optimizations[index].dimx()
-            max_split_fct = var.extent_var // 2
-            # if dim is bigger than 4, and the split optimization so we can split the variable var
+            back_execution = restriction.restrict(schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization)
+          if back_execution == True :
+             func = schedule.optimizations[index].func
+             var = schedule.optimizations[index].variable
+             dim = schedule.optimizations[index].dimx()
+             max_split_fct = var.extent_var // 2
+             # if dim is bigger than 4, and the split optimization so we can split the variable var
 
-            if (dim >= 4) & (SplitOptimizationGenerator.nesting_split_of_var(setRestrictions, func, var) > 0) :
+             if (dim >= 4) & (SplitOptimizationGenerator.nesting_split_of_var(set_restrictions, func, var) > 0) :
               for split_factor in map(lambda v : pow(2,v), reversed(range(0,int(math.log(max_split_fct, 2)+1)))):
                 func = schedule.optimizations[index].func
                 var = schedule.optimizations[index].variable
@@ -124,26 +127,26 @@ class SplitOptimizationGenerator(OptimizationGenerator):
                 elemSupp = list()
                 schedule.optimizations = SplitOptimizationGenerator.update_optim__after_split(schedule.optimizations, func ,var ,\
                                                         split_factor,index, elemSupp, program, \
-                                                                                setRestrictions,1)
+                                                                                set_restrictions,1)
                 toRemember = [dim, elemSupp]
-                SplitOptimizationGenerator.explore_possibilities(schedule, index+1, program, toRemember, \
-                                                                 setRestrictions, idProgram\
+                SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, toRemember, \
+                                                                 set_restrictions, id_program \
                                                                  , index_order_optimization, \
                                                                  order_optimization)
                 func = schedule.optimizations[index].func
                 var = schedule.optimizations[index].variable
                 SplitOptimizationGenerator.update_cfg_undo_split(schedule.optimizations, func, var, \
-                                                                 index, toRemember[1], setRestrictions,1)
+                                                                 index, toRemember[1], set_restrictions,1)
                 SplitOptimizationGenerator.replace_var_un_split(program, func, var, toRemember[0])
-            else :
-              SplitOptimizationGenerator.explore_possibilities(schedule,index+1, program, None, setRestrictions, \
-                                                                            idProgram,index_order_optimization, \
-                                                                            order_optimization)
+             else :
+              SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, None, set_restrictions, \
+                                                               id_program, index_order_optimization, \
+                                                               order_optimization)
         else :
             # if the current optimization is not a split optimization, just move to the next optimization
-            SplitOptimizationGenerator.explore_possibilities(schedule,index+1, program, None, setRestrictions, \
-                                                                            idProgram, index_order_optimization, \
-                                                                            order_optimization)
+            SplitOptimizationGenerator.explore_possibilities(schedule, index + 1, program, None, set_restrictions, \
+                                                             id_program, index_order_optimization, \
+                                                             order_optimization)
 
 
 
