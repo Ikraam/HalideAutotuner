@@ -197,9 +197,9 @@ int main(int argc, char **argv) {
     Func AB("AB");
     RDom rv(0, 400);
 
-    Halide::Buffer<float> A_ (8,400,20);
-    Halide::Buffer<float> B_ (400,4096,20);
-    Halide::Buffer<float> D_ (8,4096,20);
+    Halide::Buffer<float> A_ (8,400);
+    Halide::Buffer<float> B_ (400,4096);
+    Halide::Buffer<float> D_ (8,4096);
     Halide::Buffer<float> outputBuf;
     Halide::Buffer<float> outputBufNaive;
     int m,n,l;
@@ -208,44 +208,38 @@ int main(int argc, char **argv) {
     // img init 
     for(m=0; m<A_.dim(0).extent(); m++) {
     for(n=0; n<A_.dim(1).extent(); n++) {
-    for(l=0; l<A_.dim(2).extent(); l++) {
-      A_(m,n,l)=2;    
-    }    
+      A_(m,n)=2;       
     }
     }
     
     for(m=0; m<B_.dim(0).extent(); m++) {
     for(n=0; n<B_.dim(1).extent(); n++) {
-    for(l=0; l<B_.dim(2).extent(); l++) {
-      B_(m,n,l)=1; 
-    }   
+      B_(m,n)=1;    
     }    
     }
 
     for(m=0; m<D_.dim(0).extent(); m++) {
     for(n=0; n<D_.dim(1).extent(); n++) {
-    for(l=0; l<D_.dim(2).extent(); l++) {
-      D_(m,n,l)=1 + rand() % (( 255 + 1 ) - 1);   
-      D_(m,n,l) = 0; 
-    }
+      D_(m,n)=1 + rand() % (( 255 + 1 ) - 1);   
+      D_(m,n) = 0; 
     }    
     }
 
     Func C_("C_");
-    C_(i,j,c) = D_(i,j,c);
-    AB(i,j,c) = D_(i,j,c);
-    Atmp(i, j, c) = A_(i, j, c);  
-    As(i, j, z, c) = Atmp(2*z + i, j,c);
-    A(i, j, c) = As(i % 2, j, i / 2,c);
-    Btmp(i, j, c) = B_(i, j, c);
-    B(i, j, c) = Btmp(i, j, c);
+    C_(i,j) = D_(i,j);
+    AB(i,j) = D_(i,j);
+    Atmp(i, j) = A_(i, j);  
+    As(i, j, z) = Atmp(2*z + i, j);
+    A(i, j) = As(i % 2, j, i / 2);
+    Btmp(i, j) = B_(i, j);
+    B(i, j) = Btmp(i, j);
     
     // Express all the products we need to do a matrix multiply as a 3D Func.
-    prod(k, i, j, c) = A(i, k, c) * B(k, j, c);
+    prod(k, i, j) = A(i, k) * B(k, j);
     // Reduce the products along k.
-    AB(i, j, c) += prod(rv, i, j, c);
+    AB(i, j) += prod(rv, i, j);
     // Do the part that makes it a 'general' matrix multiply.
-    result_(i, j, c) = AB(i, j, c);
+    result_(i, j) = AB(i, j);
     {
         std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((result_).function());
         outputBufNaive=_autotune_timing_stub(result_, true);
@@ -253,44 +247,13 @@ int main(int argc, char **argv) {
     {
         std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((result_).function());
         
-         Var ii("ii");
-         Var io("io");
-         Var ji("ji");
-         Var jo("jo");
-         Var zi("zi");
-         Var zo("zo");
-         Var ci("ci");
-         Var co("co");
-         Var ki("ki");
-         Var ko("ko");
-         RVar rvi("rvi");
-         RVar rvo("rvo");
-         Var coci$("coci$");
-         prod.tile(i, j ,io, jo ,ii, ji, 4, 2048);
-         As.split(j, jo , ji ,128);
-         As.split(z, zo , zi ,2);
-         As.split(c, co , ci ,8);
-         A.split(i, io , ii ,4);
-         A.split(j, jo , ji ,128);
-         A.split(c, co , ci ,8);
-         B.split(i, io , ii ,128);
-         B.split(j, jo , ji ,2048);
-         B.split(c, co , ci ,8);
-         prod.split(k, ko , ki ,128);
-         prod.split(c, co , ci ,8);
-         AB.update(0).split(i, io , ii ,4);
-         AB.update(0).split(j, jo , ji ,2048);
-         AB.update(0).split(rv, rvo , rvi ,128);
-         AB.update(0).split(c, co , ci ,8);
-         result_.split(i, io , ii ,4);
-         result_.split(j, jo , ji ,2048);
-         result_.split(c, co , ci ,8);
-        As.reorder(i,ji,jo,zi,zo,ci,co);
-        A.reorder(ii,io,ji,jo,ci,co);
-        B.reorder(ii,io,ji,jo,ci,co);
-        prod.reorder(ki,ko,ii,io,ji,jo,ci,co);
-        AB.update(0).reorder(ii,io,ji,jo,rvi,rvo,ci,co);
-        result_.reorder(ii,io,ji,jo,ci,co);As.fuse(co, ci , coci$);A.fuse(co, ci , coci$);B.fuse(co, ci , coci$);prod.fuse(co, ci , coci$);AB.update(0).fuse(co, ci , coci$);result_.fuse(co, ci , coci$);As.parallel(coci$);A.parallel(coci$);B.parallel(coci$);prod.parallel(coci$);AB.update(0).parallel(coci$);result_.parallel(coci$);A.vectorize(ii);B.vectorize(ii);prod.vectorize(ki);AB.update(0).vectorize(ii);result_.vectorize(ii);As.unroll(ji);As.compute_at(A,ii);A.compute_at(prod,ki);B.compute_at(prod,ki);prod.compute_at(AB,ii);AB.compute_at(result_,ii);As.store_at(A,ii);A.store_at(prod,ki);B.store_at(prod,ki);prod.store_at(AB,io);AB.store_root();        
+         Var ij$("ij$");
+        As.reorder(z,j,i);
+        A.reorder(j,i);
+        B.reorder(j,i);
+        prod.reorder(j,i,k);
+        AB.update(0).reorder(rv,j,i);
+        result_.reorder(j,i);As.fuse(i, j , ij$);A.fuse(i, j , ij$);B.fuse(i, j , ij$);As.parallel(ij$);A.parallel(ij$);B.parallel(ij$);prod.parallel(k);AB.update(0).parallel(i);result_.parallel(i);AB.update(0).unroll(rv);AB.update(0).unroll(j);As.compute_root();A.compute_root();B.compute_at(prod,i);prod.compute_root();AB.compute_root();        
         outputBuf=_autotune_timing_stub(result_, false);
     } 
     ;
@@ -301,12 +264,10 @@ int main(int argc, char **argv) {
     bool scheduleValide = true;
     for(m=0; m<outputBuf.dim(0).extent(); m++) {
     for(n=0; n<outputBuf.dim(1).extent(); n++) {
-    for(l=0; l<outputBuf.dim(2).extent(); l++) {
-      if (outputBuf(m,n,l) != outputBufNaive(m,n,l)) {
+      if (outputBuf(m,n) != outputBufNaive(m,n)) {
          scheduleValide = false; 
          exit(-1);
         }
-    }    
     }    
     } 
     if (scheduleValide == true){

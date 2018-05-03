@@ -1,17 +1,29 @@
+import settings
 from settings import *
-
+import OptimizationGenerator
+from OptimizationGenerator import *
+import Schedule
+import Program
+from Program import Variable
 
 
 class StoreAtOptimizationGenerator(OptimizationGenerator):
 
     @staticmethod
-    def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
-                                                  index_order_optimization, order_optimization):
+    def explore_possibilities(schedule, index, program, elemSupp, set_restrictions, id_program, \
+                              index_order_optimization, order_optimization):
         if index == len(schedule.optimizations):
-            settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization \
+            settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization \
                                               , order_optimization)
         else :
-            if isinstance(schedule.optimizations[index], StoreAtOptimization):
+            if isinstance(schedule.optimizations[index], Schedule.StoreAtOptimization):
+              restriction = schedule.optimizations[index].there_are_restrictions(set_restrictions)
+              back_execution = True
+              if restriction != None :
+                 back_execution = restriction.restrict(schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization)
+              if back_execution == True :
                 optim = schedule.optimizations[index]
                 var = optim.variable
                 consumer = optim.consumer
@@ -22,30 +34,30 @@ class StoreAtOptimizationGenerator(OptimizationGenerator):
                     for i in range(index_var, len(list_vars_func)):
                         var_store_at = list_vars_func[i]
                         optim.variable = var_store_at
-                        StoreAtOptimizationGenerator.explore_possibilities(schedule, index+1, program, \
-                                                                           elemSupp, setRestrictions, \
-                                                                           idProgram, \
+                        StoreAtOptimizationGenerator.explore_possibilities(schedule, index + 1, program, \
+                                                                           elemSupp, set_restrictions, \
+                                                                           id_program, \
                                                                            index_order_optimization, \
                                                                            order_optimization)
                     var_store_at = Variable('root',0,"Var")
                     optim.variable = var_store_at
-                    StoreAtOptimizationGenerator.explore_possibilities(schedule, index+1, program, \
-                                                                           elemSupp, setRestrictions, \
-                                                                           idProgram, \
-                                                                           index_order_optimization, \
-                                                                           order_optimization)
+                    StoreAtOptimizationGenerator.explore_possibilities(schedule, index + 1, program, \
+                                                                       elemSupp, set_restrictions, \
+                                                                       id_program, \
+                                                                       index_order_optimization, \
+                                                                       order_optimization)
                 else :
-                    StoreAtOptimizationGenerator.explore_possibilities(schedule, index+1, program, \
-                                                                           elemSupp, setRestrictions, \
-                                                                           idProgram, \
-                                                                           index_order_optimization, \
-                                                                           order_optimization)
+                    StoreAtOptimizationGenerator.explore_possibilities(schedule, index + 1, program, \
+                                                                       elemSupp, set_restrictions, \
+                                                                       id_program, \
+                                                                       index_order_optimization, \
+                                                                       order_optimization)
             else :
-                StoreAtOptimizationGenerator.explore_possibilities(schedule, index+1, program, \
-                                                                           elemSupp, setRestrictions, \
-                                                                           idProgram, \
-                                                                           index_order_optimization, \
-                                                                           order_optimization)
+                StoreAtOptimizationGenerator.explore_possibilities(schedule, index + 1, program, \
+                                                                   elemSupp, set_restrictions, \
+                                                                   id_program, \
+                                                                   index_order_optimization, \
+                                                                   order_optimization)
 
 
 
@@ -53,32 +65,39 @@ class StoreAtOptimizationGenerator(OptimizationGenerator):
 
 class ComputeAtOptimizationGenerator(OptimizationGenerator):
     @staticmethod
-    def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
+    def explore_possibilities(schedule, index, program, elemSupp, set_restrictions, id_program, \
                               index_order_optimization, order_optimization):
         if index == len(schedule.optimizations):
-            settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization,
+            settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization,
                                               order_optimization)
             return schedule
         else :
-            if isinstance(schedule.optimizations[index],ComputeAtOptimization):
-              producer = schedule.optimizations[index].func
-              consumer =  schedule.optimizations[index].consumer
-              for var in consumer.list_variables:
+            if isinstance(schedule.optimizations[index],Schedule.ComputeAtOptimization):
+              restriction = schedule.optimizations[index].there_are_restrictions(set_restrictions)
+              back_execution = True
+              if restriction != None :
+                 back_execution = restriction.restrict(schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization)
+              if back_execution == True :
+                 producer = schedule.optimizations[index].func
+                 consumer =  schedule.optimizations[index].consumer
+                 for var in consumer.list_variables:
                     schedule.optimizations[index].variable = var
-                    ComputeAtOptimizationGenerator.explore_possibilities(schedule, index+1, \
+                    ComputeAtOptimizationGenerator.explore_possibilities(schedule, index + 1, \
                                                                          program, elemSupp, \
-                                                                         setRestrictions, idProgram, \
+                                                                         set_restrictions, id_program, \
                                                                          index_order_optimization, \
                                                                          order_optimization)
 
-              schedule.optimizations[index].variable = Variable('root',0,"Var")
-              ComputeAtOptimizationGenerator.explore_possibilities(schedule, index+1, program, \
-                                                                   elemSupp, setRestrictions, idProgram, \
-                                                                   index_order_optimization,\
-                                                                   order_optimization)
+                 schedule.optimizations[index].variable = Variable('root',0,"Var")
+                 ComputeAtOptimizationGenerator.explore_possibilities(schedule, index + 1, program, \
+                                                                      elemSupp, set_restrictions, id_program, \
+                                                                      index_order_optimization, \
+                                                                      order_optimization)
             else :
-              ComputeAtOptimizationGenerator.explore_possibilities(schedule, index+1, program, \
-                                                                   elemSupp, setRestrictions, idProgram, \
+              ComputeAtOptimizationGenerator.explore_possibilities(schedule, index + 1, program, \
+                                                                   elemSupp, set_restrictions, id_program, \
                                                                    index_order_optimization, \
                                                                    order_optimization)
 

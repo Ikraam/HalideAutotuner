@@ -15,6 +15,7 @@ import os
 import errno
 import time
 import signal
+import Schedule
 
 try:
   import resource
@@ -200,7 +201,7 @@ class ScheduleExecution():
       # If we have Split or fuse optimizations in schedule, we need to define new variables and add them to
       # the source
       for optim in schedule.optimizations :
-          if isinstance(optim, SplitOptimization):
+          if isinstance(optim, Schedule.SplitOptimization):
               if optim.split_factor != 1 :
                   # If splitFactor is bigger than 1 : so we have a split
                   # If variable is of type RVar
@@ -225,7 +226,7 @@ class ScheduleExecution():
                         declared_vars_to_schedule = declared_vars_to_schedule +"\n Var {}(\"{}\");".format(splitted_var+'i',splitted_var+'i')
                         declared_vars_to_schedule = declared_vars_to_schedule +"\n Var {}(\"{}\");".format(splitted_var+'o',splitted_var+'o')
 
-          if isinstance(optim, TileOptimization):
+          if isinstance(optim, Schedule.TileOptimization):
             if (optim.tile_factor_in > 1) | (optim.tile_factor_out > 1) :
                   # If tile_factor_in is bigger than 1 : so we have a tile
                   # If variable is of type RVar
@@ -273,7 +274,7 @@ class ScheduleExecution():
                         declared_vars_to_schedule = declared_vars_to_schedule +"\n Var {}(\"{}\");".format(tiled_var_out+'o',tiled_var_out+'o')
 
           # if we have a fusion, we must add the new variable
-          if isinstance(optim, FuseOptimization):
+          if isinstance(optim, Schedule.FuseOptimization):
               if optim.enable == True :
                   # if one of the variables is of type RVar
                   if optim.variable1.type_of_var() == 'RVar':

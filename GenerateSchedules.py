@@ -1,9 +1,10 @@
 import hashlib
 import Machine
 from GenerationOfOptimizations.settings import *
-
-
-
+import Heuristics.Heuristic_test_restrictions
+from Heuristics.Heuristic_test_restrictions import *
+import Heuristics.Heuristic_reorder_explore
+from Heuristics.Heuristic_reorder_explore import *
 
 COMPILE_CMD = (
   '{args.cxx} "{cpp}" -o "{bin}" -I "{args.halide_dir}/include" '
@@ -94,7 +95,9 @@ def main(args):
     ''' store program's characteristics'''
     storage.store_program(id_program, settings, idOfMachine)
     ''' lunch the exhaustive search algorithm '''
-    generate_exhaustive_schedules(program, args)
+    #generate_exhaustive_schedules(program, args)
+    generate_schedules_heuristic(program, args)
+
 
 
 

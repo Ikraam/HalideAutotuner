@@ -1,6 +1,19 @@
 import abc
 import Program
 from Program import *
+import Restrictions
+from Restrictions_.ComputeAtRestriction_ import *
+from Restrictions_.ParallelRestriction_ import *
+from Restrictions_.StoreAtRestriction_ import *
+from Restrictions_.VectorizeRestriction_ import *
+from Restrictions_.UnrollRestriction_ import *
+from Restrictions_.FuseRestriction_ import *
+from Restrictions_.SplitRestriction_ import *
+from Restrictions_.TileRestriction_ import *
+from Restrictions_.ReorderRestriction_ import *
+import ScheduleExecution
+
+
 
 class Schedule:
     def __init__(self, optimizations, args):
@@ -17,6 +30,11 @@ class Schedule:
             if str(optim) != '':
                 string_to_return=string_to_return+str(optim)
         return string_to_return
+
+    def test_schedule(self, program, id_program):
+        sched_exec = ScheduleExecution.ScheduleExecution(program.args, 1000)
+        time = sched_exec.test_schedule(self, id_program)
+        return time
 
 
 
@@ -87,7 +105,7 @@ class Schedule:
             new_optim = TileOptimization(optim.func, optim.tile_factor_in, optim.tile_factor_out, optim.variable_in, \
                                         optim.variable_out)
         if isinstance(optim, ReorderOptimization):
-            new_optim = ReorderOptimization(optim.func, optim.variables[:])
+            new_optim = ReorderOptimization(optim.func, optim.variables[:], optim.enable)
         if isinstance(optim, UnrollOptimization):
             new_optim = UnrollOptimization(optim.func, optim.variable, optim.enable)
         if isinstance(optim, ParallelOptimization):
@@ -97,11 +115,12 @@ class Schedule:
         if isinstance(optim, ReorderStorageOptimization):
             new_optim = ReorderStorageOptimization(optim.func, optim.variables)
         if isinstance(optim, FuseOptimization):
-            new_optim = FuseOptimization(optim.func, optim.variable1, optim.variable2, optim.fused_var, optim.enable)
+            new_optim = FuseOptimization(optim.func, optim.variable1, optim.variable2, optim.fused_var,\
+                                         optim.enable)
         if isinstance(optim, ComputeAtOptimization):
-            new_optim = ComputeAtOptimization(optim.func, optim.variable, optim.consumer)
+            new_optim = ComputeAtOptimization(optim.func, optim.variable, optim.consumer, optim.enable)
         if isinstance(optim, StoreAtOptimization):
-            new_optim = StoreAtOptimization(optim.func, optim.variable, optim.consumer)
+            new_optim = StoreAtOptimization(optim.func, optim.variable, optim.consumer, optim.enable)
         list_of_optim.append(new_optim)
       new_schedule = Schedule(list_of_optim, self.args)
       return new_schedule
@@ -117,6 +136,8 @@ class Optimization():
 
 
 
+
+
 class TileOptimization(Optimization):
     def __init__(self, func, tile_factor_in, tile_factor_out, variable_in, variable_out):
         super(TileOptimization, self).__init__(func)
@@ -126,6 +147,15 @@ class TileOptimization(Optimization):
         # Two tiled variable loops
         self.variable_in = variable_in
         self.variable_out = variable_out
+
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, TileRestriction):
+                if (restriction.func == self.func) & (restriction.variable_in == self.variable_in):
+                  if restriction.variable_out == self.variable_out :
+                    return restriction
+        return None
 
 
     def __str__(self):
@@ -186,6 +216,13 @@ class SplitOptimization(Optimization):
         # The variable of func on which we apply the split optimization
         self.variable = variable
 
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, SplitRestriction):
+                if (restriction.func == self.func) & (restriction.variable == self.variable):
+                    return restriction
+        return None
+
 
     def __str__(self):
         if self.split_factor > 1:
@@ -229,7 +266,7 @@ class SplitOptimization(Optimization):
           if func.is_consumer():
               for variable in func.list_variables :
                     # Create a split a optimization with factor = 1
-                 nesting = SplitOptimization.nesting_split_of_var(restrictions, variable, func)
+                 nesting = 1
                  if SplitOptimization.split_again(variable.name_var, nesting) :
                     splitOptimization = SplitOptimization(func, 1, variable)
                     # Append the split optimization
@@ -307,6 +344,13 @@ class UnrollOptimization(Optimization):
         else:
             return ''
 
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, UnrollRestriction):
+                if restriction.func == self.func:
+                    return restriction
+        return None
+
 
     @staticmethod
     def append_optimizations(program, schedule):
@@ -330,7 +374,6 @@ class UnrollOptimization(Optimization):
                          if optim.variable.name_var+'i' == inner1.name_var :
                            splitted_var = True
                            break
-
                 if (inner1.type == 'RVar') | (splitted_var == True) :
                    new_schedule.optimizations.append(UnrollOptimization(func, inner1, False))
         return new_schedule
@@ -359,6 +402,13 @@ class VectorizeOptimization(Optimization):
             return '{}.vectorize({});'.format(self.func, var_name)
         else :
             return ''
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, VectorizeRestriction):
+                if (restriction.func == self.func):
+                    return restriction
+        return None
 
     @staticmethod
     def append_optimizations(program, schedule):
@@ -403,6 +453,14 @@ class ParallelOptimization(Optimization):
         self.enable = enable
 
 
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, ParallelRestriction):
+                if (restriction.func == self.func):
+                    return restriction
+        return None
+
+
     def __str__(self):
         if self.enable :
              return '{}.parallel({});'.format(self.func, self.variable.name_var)
@@ -427,6 +485,13 @@ class FuseOptimization(Optimization):
         self.variable2 = variable2
         self.fused_var = fused_var
         self.enable = enable
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, FuseRestriction):
+                if restriction.func == self.func:
+                    return restriction
+        return None
 
 
     def __str__(self):
@@ -453,13 +518,14 @@ class FuseOptimization(Optimization):
         for optim in schedule.optimizations :
             if isinstance(optim, ReorderOptimization):
                 if optim.func == func :
+                    list_of_vars = list()
                     for var in optim.variables :
                         list_of_vars.append(var)
         return list_of_vars
 
-
        new_schedule = schedule.copy_schedule()
-       for func in program.functions :
+       new_program = program.copy_program()
+       for func in new_program.functions :
          if func.is_consumer():
               inner_permit = False
               outer_permit = True
@@ -487,16 +553,31 @@ class FuseOptimization(Optimization):
                                                                            Variable(name_var_fused, extent_var_fused, \
                                                                            list_vars[len(list_vars)-1].type_of_var()), False))
 
+
        return new_schedule
 
 
 #We can have a reorder optimization
 class ReorderOptimization(Optimization):
-    def __init__(self, func, variables):
+    def __init__(self, func, variables, enable):
         super(ReorderOptimization, self).__init__(func)
         self.variables = variables
+        self.enable = enable
+
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, ReorderRestriction):
+                if restriction.func == self.func:
+                    return restriction
+        return None
+
+
+
+
 
     def __str__(self):
+      if self.enable :
         str_to_return = '\n'+str(self.func)
         str_to_return = str_to_return+'.reorder('
         for var in self.variables :
@@ -525,6 +606,8 @@ class ReorderOptimization(Optimization):
         str_to_return = str_to_return[0:len(str_to_return)-1]
         str_to_return = str_to_return+');'
         return str_to_return
+      else :
+          return ''
 
     @staticmethod
     def append_optimizations(schedule, program):
@@ -535,9 +618,8 @@ class ReorderOptimization(Optimization):
       new_schedule = schedule.copy_schedule()
       for func in program.functions:
          if func.is_consumer():
-               print func
                #if func.permit_optimization(setRestrictions, ReorderRestriction):
-               reorderOptim = ReorderOptimization(func, list())
+               reorderOptim = ReorderOptimization(func, list(), True)
                # Add to schedule all the reorder optimizations
                new_schedule.optimizations.append(reorderOptim)
                if first == False :
@@ -593,7 +675,7 @@ class ReorderStorageOptimization(Optimization):
 
 # We can have a compute_at optimization
 class ComputeAtOptimization(Optimization):
-    def __init__(self, func, variable, consumer):
+    def __init__(self, func, variable, consumer, enable):
         super(ComputeAtOptimization, self).__init__(func)
         if consumer == None :
             self.variable = 'root'
@@ -602,18 +684,30 @@ class ComputeAtOptimization(Optimization):
             self.consumer = consumer
             # The variable concerned by compute_at optimization
             self.variable = variable
+            self.enable = enable
 
     def __str__(self):
-        consumer_name = self.consumer.name_function
-        producer_name = self.func.name_function
-        if 'update' in producer_name :
+      consumer_name = self.consumer.name_function
+      producer_name = self.func.name_function
+      if 'update' in producer_name :
             producer_name = producer_name.split(".")[0]
-        if 'update' in consumer_name :
+      if 'update' in consumer_name :
             consumer_name = consumer_name.split(".")[0]
+      if self.enable :
         if self.variable.name_var == 'root':
             return '{}.compute_root();'.format(producer_name)
         name_var = self.variable.name_var
         return '{}.compute_at({},{});'.format(producer_name, consumer_name, name_var)
+      else :
+          return ''
+
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, ComputeAtRestriction):
+                if (restriction.func == self.func) & (restriction.consumer == self.consumer):
+                    return restriction
+        return None
 
 
     @staticmethod
@@ -626,20 +720,23 @@ class ComputeAtOptimization(Optimization):
                  if dict_func[producer].is_consumer():
                     new_schedule.optimizations.append(ComputeAtOptimization(dict_func[producer], \
                                                                             Variable('root',0, "Var")\
-                                                                            ,func))
+                                                                            ,func, True))
         return new_schedule
 
 
 # We can have a store_at optimization
 class StoreAtOptimization(Optimization):
-    def __init__(self, func, variable, consumer):
+    def __init__(self, func, variable, consumer, enable):
         super(StoreAtOptimization, self).__init__(func)
         if consumer == None :
             self.variable = 'root'
         else :
             self.consumer = consumer
             self.variable = variable
+        self.enable = enable
+
     def __str__(self):
+       if self.enable :
         consumer_name = self.consumer.name_function
         producer_name = self.func.name_function
         if 'update' in producer_name :
@@ -650,14 +747,25 @@ class StoreAtOptimization(Optimization):
             return '{}.store_root();'.format(producer_name)
         name_var = self.variable.name_var
         return '{}.store_at({},{});'.format(producer_name, consumer_name, name_var)
+       else :
+           return ''
 
     @staticmethod
     def append_optimizations(schedule, program):
         new_schedule = schedule.copy_schedule()
         for optim in new_schedule.optimizations :
             if isinstance(optim, ComputeAtOptimization):
-                new_schedule.optimizations.append(StoreAtOptimization(optim.func, optim.variable, optim.consumer))
+                new_schedule.optimizations.append(StoreAtOptimization(optim.func, optim.variable,\
+                                                                      optim.consumer, True))
         return new_schedule
+
+
+    def there_are_restrictions(self, set_restrictions):
+        for restriction in set_restrictions :
+            if isinstance(restriction, StoreAtRestriction):
+                if (restriction.func == self.func) & (restriction.consumer == self.consumer):
+                    return restriction
+        return None
 
 
 

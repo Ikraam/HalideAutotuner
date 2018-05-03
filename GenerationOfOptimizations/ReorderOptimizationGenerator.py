@@ -1,4 +1,8 @@
+import settings
 from settings import *
+import OptimizationGenerator
+from OptimizationGenerator import *
+import Schedule
 
 
 class ReorderOptimizationGenerator(OptimizationGenerator):
@@ -20,21 +24,11 @@ class ReorderOptimizationGenerator(OptimizationGenerator):
 
 
       if (index == len(schedule.optimizations)):
-          '''new_program = ReorderOptimizationGenerator.update_program_after_reorder(program, schedule)
-          new_schedule = order_optimization[index_order_optimization][0].append_optimizations(schedule, program)
-          order_optimization[index_order_optimization][1].explore_possibilities(new_schedule, 0, \
-                                                                                new_program, list(),\
-                                                                                set_restrictions, \
-                                                                                id_program, \
-                                                                              index_order_optimization+1, \
-                                                                                order_optimization)'''
-
           settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization, \
                                             order_optimization)
-          print schedule
           return schedule
       else :
-        if (isinstance(schedule.optimizations[index], ReorderOptimization)) :
+        if (isinstance(schedule.optimizations[index], Schedule.ReorderOptimization)) :
           if len(unchoosen) == 0:
              schedule.optimizations[index].variables = list()
              for elem in choosen :
@@ -48,16 +42,26 @@ class ReorderOptimizationGenerator(OptimizationGenerator):
                                                                 program, set_restrictions, id_program,
                                                                 index_order_optimization, order_optimization)
           else :
-             func = schedule.optimizations[index].func
-             for i in xrange(0, len(unchoosen)):
-              var = unchoosen[i]                                ## choose the variable to add in list of Reorder
-              choosen.append(var)                               ## delete it from unchoosen
-              ReorderOptimizationGenerator.explore_possibilities(schedule, index, choosen, \
+             restriction = schedule.optimizations[index].there_are_restrictions(set_restrictions)
+             back_execution = True
+             if restriction != None :
+                info = dict()
+                info['unchoosen'] = unchoosen
+                info['choosen'] = choosen
+                back_execution = restriction.restrict(schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization, info)
+             if back_execution == True :
+               func = schedule.optimizations[index].func
+               for i in xrange(0, len(unchoosen)):
+                    var = unchoosen[i]                                ## choose the variable to add in list of Reorder
+                    choosen.append(var)                               ## delete it from unchoosen
+                    ReorderOptimizationGenerator.explore_possibilities(schedule, index, choosen, \
                                                                  unchoosen[:i] +unchoosen[i+1:], \
                                                                  program, set_restrictions, id_program, \
                                                                  index_order_optimization, \
                                                                  order_optimization)
-              choosen.remove(var)
+                    choosen.remove(var)
         else :
             ReorderOptimizationGenerator.explore_possibilities(schedule, index + 1, choosen, unchoosen, \
                                                                program, set_restrictions, id_program, \
@@ -82,8 +86,9 @@ class ReorderOptimizationGenerator(OptimizationGenerator):
 
          # find the reorder optimization applied to function 'self' and
          for optim in schedule.optimizations :
-            if isinstance(optim, ReorderOptimization):
+            if isinstance(optim, Schedule.ReorderOptimization):
                 if optim.func == func :
+                    list_of_vars = list()
                     for var in optim.variables :
                         list_of_vars.append(var)
          return list_of_vars
