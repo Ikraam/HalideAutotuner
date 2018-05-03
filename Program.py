@@ -1,6 +1,6 @@
 import json
 import re
-
+import Schedule
 
 
 
@@ -107,17 +107,29 @@ class Function():
         inner1 = None
         inner2 = None
         if re.match(self.legal_vectorize+"(i)*",list_variables[0].name_var):
-            if len(list_variables) > 1 :
+            vectorized = False
+            inner1 = list_variables[0]
+            for optim in schedule.optimizations :
+                if isinstance(optim, Schedule.VectorizeOptimization) :
+                  if (optim.func == self) & (optim.enable == True) :
+                    if inner1 == optim.variable :
+                        vectorized = True
+                        break
+            if vectorized == True  :
+             if len(list_variables) > 1 :
                inner1 = list_variables[1]
                if len(list_variables) > 2 :
                    inner2 = list_variables[2]
+
+
         else :
             inner1 = list_variables[0]
-            if re.match(self.legal_vectorize+"(i)*",list_variables[1].name_var):
-                inner2 = None
-            else :
-                if len(list_variables) > 1 :
-                   inner2 = list_variables[1]
+            if len(list_variables) > 1 :
+                if re.match(self.legal_vectorize+"(i)*",list_variables[1].name_var):
+                    inner2 = None
+                else :
+                    if len(list_variables) > 1 :
+                        inner2 = list_variables[1]
         return [inner1, inner2]
 
 

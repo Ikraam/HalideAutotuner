@@ -6,7 +6,7 @@ from pymongo import MongoClient
 import Schedule
 from Schedule import *
 import hashlib
-
+import Schedule
 
 ## Set a connection to the database 'opentuner'
 class StorageManager():
@@ -129,7 +129,27 @@ class StorageManager():
             # Let's store every single optimization of schedule
             for optim in schedule.optimizations:
                 # If we are on SplitOptimization
-                if isinstance(optim, SplitOptimization):
+                if isinstance(optim, Schedule.TileOptimization):
+                    # Extract all the relevant information of the current optimization
+                    if (optim.tile_factor_in > 1) | (optim.tile_factor_out > 1) :
+                        # name = name of the current function
+                        name = optim.func.name_function
+                        var_outer_in = optim.variable_in.name_var+'o'
+                        var_outer_out = optim.variable_out.name_var+'o'
+                        var_inner_in = optim.variable_in.name_var+'i'
+                        var_inner_out = optim.variable_out.name_var+'i'
+                        factor_in = optim.tile_factor_in
+                        factor_out = optim.tile_factor_out
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "tile" :{"func":name, "var_tiled_in": optim.variable_in.name_var, \
+                                                                                    "var_tiled_out": optim.variable_out.name_var,
+                                                                                    "var_inner_in": var_inner_in, \
+                                                                                    "var_inner_out":var_inner_out, \
+                                                                                    "var_outer_in": var_outer_in, \
+                                                                                    "var_outer_out":var_outer_out, \
+                                                                                    "factor_in":factor_in, \
+                                                                                    "factor_out":factor_out
+                                                                                              }}})
+                if isinstance(optim, Schedule.SplitOptimization):
                     # Extract all the relevant information of the current optimization
                     if optim.split_factor > 1 :
                         # name = name of the current function
@@ -138,73 +158,73 @@ class StorageManager():
                         var_outer = optim.variable.name_var+'o'
                         var_inner = optim.variable.name_var+'i'
                         factor = optim.split_factor
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "split" :{"func":name, "var_splitted": var_splitted,
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "split" :{"func":name, "var_splitted": var_splitted,
                                                                                            "var_inner": var_inner, "var_outer":var_outer, "factor":factor}}})
                 # If we are on FuseOptimization
-                if isinstance(optim, FuseOptimization):
+                if isinstance(optim, Schedule.FuseOptimization):
                     if optim.enable  :
                         name = optim.func.name_function
                         var1 = optim.variable1.name_var
                         var2 = optim.variable2.name_var
                         fusedVar = optim.fused_var.name_var
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "fuse" :{"func":name, "var1": var1,
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "fuse" :{"func":name, "var1": var1,
                                                                                            "var2": var2, "fused_var":fusedVar}}})
 
 
                 # If we are on ReorderOptimization
-                if isinstance(optim, ReorderOptimization):
+                if isinstance(optim, Schedule.ReorderOptimization):
                     if len(optim.variables) != 0 :
                         name = optim.func.name_function
                         var_of_reorder = list()
                         for var in optim.variables :
                             var_of_reorder.append(var.name_var)
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "reorder" :{"func":name, "reorder":var_of_reorder}}})
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "reorder" :{"func":name, "reorder":var_of_reorder}}})
 
                 # If we are on ComputeAtOptimization
-                if isinstance(optim, ComputeAtOptimization) :
+                if isinstance(optim, Schedule.ComputeAtOptimization) :
                     producer = optim.func.name_function
                     consumer = optim.consumer.name_function
                     # If the variable is 'root' so store in compute_root instead of compute_at
                     if optim.variable.name_var != 'root':
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "compute_at" :{"producer":producer, "consumer":consumer,
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "compute_at" :{"producer":producer, "consumer":consumer,
                                                                                               "var":optim.variable.name_var}}})
                     else :
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "compute_root" :{"producer":producer}}})
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "compute_root" :{"producer":producer}}})
 
 
                 # If we are on StoreAtOptimization
-                if isinstance(optim, StoreAtOptimization):
+                if isinstance(optim, Schedule.StoreAtOptimization):
                     producer = optim.func.name_function
                     consumer = optim.consumer.name_function
                     # If the variable is 'root' so store in store_root instead of store_at
                     if optim.variable.name_var != 'root' :
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "store_at" :{"producer":producer, "consumer":consumer,
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "store_at" :{"producer":producer, "consumer":consumer,
                                                                                               "var":optim.variable.name_var}}})
                     else :
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "store_root" :{"producer":producer}}})
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "store_root" :{"producer":producer}}})
 
                 # If we are on VectorizeOptimization
-                if isinstance(optim, VectorizeOptimization):
+                if isinstance(optim, Schedule.VectorizeOptimization):
                     if optim.enable :
                         name = optim.func.name_function
                         var = optim.variable.name_var
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "vectorize" :{"func":name, "var": var}}})
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "vectorize" :{"func":name, "var": var}}})
 
 
                 # If we are on UnrollOptimization
-                if isinstance(optim, UnrollOptimization):
+                if isinstance(optim, Schedule.UnrollOptimization):
                     if optim.enable :
                         name = optim.func.name_function
                         var = optim.variable.name_var
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "unroll" :{"func":name, "var": var}}})
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "unroll" :{"func":name, "var": var}}})
 
 
                 # If we are on ParallelOptimization
-                if isinstance(optim, ParallelOptimization):
+                if isinstance(optim, Schedule.ParallelOptimization):
                     if optim.enable :
                         name = optim.func.name_function
                         var = optim.variable.name_var
-                        result3=self.db.schedule.update({"_id":resultn}, {"$push": { "parallel" :{"func":name, "var": var}}})
+                        self.db.schedule.update({"_id":resultn}, {"$push": { "parallel" :{"func":name, "var": var}}})
 
 
         return resultn

@@ -1,8 +1,8 @@
 import hashlib
 import GenerationOfOptimizations.settings
 from GenerationOfOptimizations.settings import *
-import Restrictions
-from Restrictions import *
+import Restrictions_
+from Restrictions_ import *
 import Schedule
 from Schedule import *
 
@@ -30,8 +30,21 @@ def define_restrictions(program):
         if function.is_consumer():
            for variable in function.list_variables :
                split_restriction = SplitRestriction(function, None, variable, 2, \
-                                                    None, None, True, True)
+                                                    None, None, True, False)
                restrictions.append(split_restriction)
-               unroll_restriction = UnrollRestriction(function,False,True)
+               unroll_restriction = UnrollRestriction(function,False,False)
+               restrictions.append(unroll_restriction)
+               vectorize_restriction = VectorizeRestriction(function, "x" ,True, True, False)
+               restrictions.append(vectorize_restriction)
+
+
+               #parallel_res = ParallelRestriction(function, True, False, True)
+
+        for consumer in program.functions :
+           if function.name_function in consumer.list_producers :
+              store_atres = StoreAtRestriction(function, consumer, False)
+              restrictions.append(store_atres)
+              compute_atRes = ComputeAtHillClimbing(function, consumer, True, True)
+              restrictions.append(compute_atRes)
     return restrictions
 

@@ -1,5 +1,5 @@
 from GenerationOfOptimizations.OptimizationGenerator import *
-from Schedule import *
+import Schedule
 from Program import *
 import math
 
@@ -9,40 +9,47 @@ import settings
 class TileOptimizationGenerator(OptimizationGenerator):
 
     @staticmethod
-    def explore_possibilities(schedule, index, program, elemSupp, setRestrictions, idProgram, \
+    def explore_possibilities(schedule, index, program, elemSupp, set_restrictions, id_program, \
                               index_order_optimization, order_optimization):
      '''
-    :param schedule: the current list of optimizations
-    :param index: the index of the current optimization in listCfg
-    :param program: an object discribing the functions and their variables
-    :param elemSupp: the optimizations deleted once split = True
-    :param setRestrictions: restrictions applied on schedule optimizations
-    :param idProgram: the id of the current program
-    :return: a valid configuration which contains only split optimizations
-     '''
+          :param schedule: the current list of optimizations
+          :param index: the index of the current optimization in listCfg
+          :param program: an object discribing the functions and their variables
+          :param elemSupp: the optimizations deleted once split = True
+          :param set_restrictions: restrictions applied on schedule optimizations
+          :param id_program: the id of the current program
+          :return: a valid configuration which contains only split optimizations
+           '''
 
      # If we have a valid schedule which contains only tile optimizations
      if len(schedule.optimizations) == index:
         # append next optimizations and explore them
-        settings.append_and_explore_optim(schedule, program, idProgram, setRestrictions, index_order_optimization, \
+        settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization, \
                                           order_optimization)
 
         return schedule
 
      else:
         # If we are on a tile optimization
-        if isinstance(schedule.optimizations[index],TileOptimization) :
-          # get all the relevant information
-          func = schedule.optimizations[index].func
-          var_in = schedule.optimizations[index].variable_in
-          var_out = schedule.optimizations[index].variable_out
-          dim_in = var_in.extent_var
-          dim_out = var_out.extent_var
-          max_factor_in = dim_in // 2
-          max_factor_out = dim_out // 2
-          if (dim_in >= 4) & (TileOptimizationGenerator.nesting_split_of_var(setRestrictions, \
-                                                                             func, var_in) > 0) :
-             if (dim_out >= 4) & (TileOptimizationGenerator.nesting_split_of_var(setRestrictions, \
+        if isinstance(schedule.optimizations[index],Schedule.TileOptimization) :
+          restriction = schedule.optimizations[index].there_are_restrictions(set_restrictions)
+          back_execution = True
+          if restriction != None :
+            back_execution = restriction.restrict(schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization)
+          if back_execution == True :
+            # get all the relevant information
+            func = schedule.optimizations[index].func
+            var_in = schedule.optimizations[index].variable_in
+            var_out = schedule.optimizations[index].variable_out
+            dim_in = var_in.extent_var
+            dim_out = var_out.extent_var
+            max_factor_in = dim_in // 2
+            max_factor_out = dim_out // 2
+            if (dim_in >= 4) & (TileOptimizationGenerator.nesting_split_of_var(set_restrictions, \
+                                                                               func, var_in) > 0) :
+             if (dim_out >= 4) & (TileOptimizationGenerator.nesting_split_of_var(set_restrictions, \
                                                                                  func, var_out) > 0) :
 
               for tile_factor_in in map(lambda v : pow(2,v), reversed(range(0,int(math.log(max_factor_in, 2)+1)))):
@@ -61,15 +68,15 @@ class TileOptimizationGenerator(OptimizationGenerator):
                                                                             func ,var_in, var_out ,\
                                                                             tile_factor_in,tile_factor_out,\
                                                                             index, elemSupp, program, \
-                                                                            setRestrictions)
+                                                                            set_restrictions)
                 toRemember = [dim_in, dim_out, elemSupp]
-                TileOptimizationGenerator.explore_possibilities(schedule, index+1, program, toRemember,\
-                                                                          setRestrictions, idProgram, \
+                TileOptimizationGenerator.explore_possibilities(schedule, index + 1, program, toRemember, \
+                                                                set_restrictions, id_program, \
                                                                 index_order_optimization, order_optimization)
                 func = schedule.optimizations[index].func
                 var_in = schedule.optimizations[index].variable_in
                 var_out = schedule.optimizations[index].variable_out
-                TileOptimizationGenerator.update_cfg_undo_tile(schedule.optimizations, func, var_in, var_out, index, toRemember[2], setRestrictions)
+                TileOptimizationGenerator.update_cfg_undo_tile(schedule.optimizations, func, var_in, var_out, index, toRemember[2], set_restrictions)
                 TileOptimizationGenerator.replace_var_un_split(program, func, var_in, toRemember[0])
                 TileOptimizationGenerator.replace_var_un_split(program, func, var_out, toRemember[1])
 
@@ -136,20 +143,16 @@ class TileOptimizationGenerator(OptimizationGenerator):
 
        for point_to_index in xrange(0, len(optimizations)):
         if point_to_index == index :                                      ## Instead of split_x, 1 we put split_x_xo_xi, split_factor
-           new_list.append(TileOptimization(func, tile_factor_in, tile_factor_out,var_in, var_out))
+           new_list.append(Schedule.TileOptimization(func, tile_factor_in, tile_factor_out,var_in, \
+                                                     var_out))
            splittedVar = var_in.name_var+'o'                                ## if the variable has a combinaison of o,i, with length bigger that nesting
            level_split_of_var = TileOptimizationGenerator.nesting_split_of_var(setRestrictions, func, var_in)
            if TileOptimizationGenerator.split_again(splittedVar, level_split_of_var):
-             split_optimization = SplitOptimization(func, 1, var_outer_in)
-             new_list.append(split_optimization)
-             split_optimization = SplitOptimization(func, 1, var_outer_out)
-             new_list.append(split_optimization)
-             split_optimization = SplitOptimization(func, 1, var_inner_in)
-             new_list.append(split_optimization)
-             split_optimization = SplitOptimization(func, 1, var_inner_out)
-             new_list.append(split_optimization)
+             tile_optimization = Schedule.TileOptimization(func,1,1, var_outer_in, var_outer_out)
+             new_list.append(tile_optimization)
+
         else :
-            if isinstance(optimizations[point_to_index], TileOptimization) == False :
+            if isinstance(optimizations[point_to_index], Schedule.TileOptimization) == False :
                 new_list.append(optimizations[point_to_index])
             else :
                 if (optimizations[point_to_index].variable_in != var_in) | (optimizations[point_to_index].func != func) :
@@ -203,7 +206,7 @@ class TileOptimizationGenerator(OptimizationGenerator):
      '''
 
      ## Remove tile(x,y,xo,yo,xi,yi,f1,f2) , put no tile instead = tile(x,y,xo,yo,xi,yi,1,1).
-     optimizations[index] = TileOptimization(func, 1, 1, var_in, var_out)
+     optimizations[index] = Schedule.TileOptimization(func, 1, 1, var_in, var_out)
      ## append all the deleted optimizations from schedule.optimizations
      for optim in deleted_optimizations:
         optimizations.append(optim)
@@ -211,7 +214,9 @@ class TileOptimizationGenerator(OptimizationGenerator):
      level_of_nesting = TileOptimizationGenerator.nesting_split_of_var(set_restrictions, var_in, func)
      # delete all the optimizations that are applied on func and either xo, xi, yo, yi
      for optim in optimizations :
-      if (isinstance(optim, SplitOptimization)) | ((isinstance(optim, UnrollOptimization)) | (isinstance(optim, VectorizeOptimization))):
+      if (isinstance(optim, Schedule.SplitOptimization)) | \
+              ((isinstance(optim, Schedule.UnrollOptimization)) | \
+               (isinstance(optim, Schedule.VectorizeOptimization))):
         if TileOptimizationGenerator.split_again(var_in.name_var, level_of_nesting):
             if (optim.func == func) & (optim.variable.name_var == var_in.name_var+'o'):
                 optimizations.remove(optim)
@@ -220,7 +225,9 @@ class TileOptimizationGenerator(OptimizationGenerator):
 
      level_of_nesting = TileOptimizationGenerator.nesting_split_of_var(set_restrictions, var_out, func)
      for optim in optimizations :
-       if (isinstance(optim, SplitOptimization)) | ((isinstance(optim, UnrollOptimization)) | (isinstance(optim, VectorizeOptimization))):
+       if (isinstance(optim, Schedule.SplitOptimization)) |\
+               ((isinstance(optim, Schedule.UnrollOptimization)) \
+                | (isinstance(optim, Schedule.VectorizeOptimization))):
         if TileOptimizationGenerator.split_again(var_out.name_var, level_of_nesting):
             if (optim.func == func) & (optim.variable.name_var == var_out.name_var+'o'):
                 optimizations.remove(optim)
