@@ -253,7 +253,7 @@ int main(int argc, char **argv) {
         B.reorder(j,i);
         prod.reorder(j,i,k);
         AB.update(0).reorder(rv,j,i);
-        result_.reorder(j,i);As.fuse(i, j , ij$);A.fuse(i, j , ij$);B.fuse(i, j , ij$);As.parallel(ij$);A.parallel(ij$);B.parallel(ij$);prod.parallel(k);AB.update(0).parallel(i);result_.parallel(i);AB.update(0).unroll(rv);AB.update(0).unroll(j);As.compute_root();A.compute_root();B.compute_at(prod,i);prod.compute_root();AB.compute_root();        
+        result_.reorder(j,i);As.fuse(i, j , ij$);A.fuse(i, j , ij$);B.fuse(i, j , ij$);As.parallel(ij$);A.parallel(ij$);B.parallel(ij$);prod.parallel(k);AB.update(0).parallel(i);result_.parallel(i);AB.update(0).unroll(rv);As.compute_root();A.compute_root();B.compute_root();prod.compute_root();AB.compute_root();        
         outputBuf=_autotune_timing_stub(result_, false);
     } 
     ;
