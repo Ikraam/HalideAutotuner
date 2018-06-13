@@ -1,10 +1,9 @@
 import hashlib
 import Machine
 from GenerationOfOptimizations.settings import *
-import Heuristics.Heuristic_test_restrictions
-from Heuristics.Heuristic_test_restrictions import *
-import Heuristics.Heuristic_reorder_explore
-from Heuristics.Heuristic_reorder_explore import *
+import Heuristics.Heuristic_HalideAutotuner
+import Save_excel
+from Save_excel import ExcelWriter
 
 COMPILE_CMD = (
   '{args.cxx} "{cpp}" -o "{bin}" -I "{args.halide_dir}/include" '
@@ -65,26 +64,11 @@ group.add_argument('--make-settings-file', action='store_true',
 
 
 
-def generate_exhaustive_schedules(program, args):
-    order_optimizations = list()
-    order_optimizations.append("Tile")
-    order_optimizations.append("Split")
-    order_optimizations.append("Reorder")
-    order_optimizations.append("Fuse")
-    order_optimizations.append("Parallel")
-    order_optimizations.append("Vectorize")
-    order_optimizations.append("Unroll")
-    order_optimizations.append("Compute_At")
-    order_optimizations.append("Store_At")
-    schedule = Schedule(list(), args)
-    id_program = hashlib.md5(str(program)).hexdigest()
-    append_and_explore_optim(schedule, program, id_program, list(), 0, order_optimizations)
-
 
 def main(args):
 
     ''' read program's characteristics'''
-    [program, settings] = Program.init_program(args.settings_file, args)
+    [program, settings_] = Program.init_program(args.settings_file, args)
     id_program = hashlib.md5(str(program)).hexdigest()
     ''' init a connexion to the database '''
     storage = StorageManager.StorageManager()
@@ -93,10 +77,20 @@ def main(args):
     ''' store machine caracteristics'''
     idOfMachine = storage.store_machine(machine)
     ''' store program's characteristics'''
-    storage.store_program(id_program, settings, idOfMachine)
+    storage.store_program(id_program, settings_, idOfMachine)
     ''' lunch the exhaustive search algorithm '''
-    #generate_exhaustive_schedules(program, args)
-    generate_schedules_heuristic(program, args)
+    settings.set_total_nb_schedule(0)
+    excel_writer = ExcelWriter
+    excel_writer.define_workbook_worksheet('results.xlsx')
+    Heuristics.Heuristic_HalideAutotuner.generate_schedules_heuristic(program, 4)
+    '''return the best schedule explored'''
+
+    print 'the best schedule explored : '
+    settings.get_best_schedule()
+    '''return its execution time'''
+    settings.get_best_time_schedule()
+    ExcelWriter.close_workbook()
+
 
 
 

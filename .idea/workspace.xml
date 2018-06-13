@@ -2,7 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="135157d7-ecdb-40ac-8b2d-c04abb599e3c" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/Heuristics/Exhaustive_search.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Heuristics/Heuristic_HalideAutotuner.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Heuristics/Heuristic_best_reorder.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Heuristics/Heuristic_reorder_analytique.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Save_excel.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/apps/conv/settings_conv.json" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/apps/relu.json" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/GenerateSchedules.py" afterPath="$PROJECT_DIR$/GenerateSchedules.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/global_information.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/global_information.py" />
+      <change beforePath="$PROJECT_DIR$/GenerationOfOptimizations/settings.py" afterPath="$PROJECT_DIR$/GenerationOfOptimizations/settings.py" />
+      <change beforePath="$PROJECT_DIR$/Heuristics/Heuristic_reorder_explore.py" afterPath="$PROJECT_DIR$/Heuristics/Heuristic_reorder_explore.py" />
+      <change beforePath="$PROJECT_DIR$/Heuristics/Heuristic_test_restrictions.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/ComputeAtOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/FuseOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/Optimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/ParallelOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/ReorderOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/ReorderStorageOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/Schedule.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/SplitOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/StoreAtOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/TileOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/UnrollOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/VectorizeOptimization.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Optimizations/__init__.py" afterPath="$PROJECT_DIR$/Heuristics/Better_HalideAutotuner.py" />
+      <change beforePath="$PROJECT_DIR$/Program.py" afterPath="$PROJECT_DIR$/Program.py" />
+      <change beforePath="$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py" afterPath="$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py" />
+      <change beforePath="$PROJECT_DIR$/Restrictions_/ReorderRestriction_.py" afterPath="$PROJECT_DIR$/Restrictions_/ReorderRestriction_.py" />
+      <change beforePath="$PROJECT_DIR$/Restrictions_/SplitRestriction_.py" afterPath="$PROJECT_DIR$/Restrictions_/SplitRestriction_.py" />
+      <change beforePath="$PROJECT_DIR$/Restrictions_/TileRestriction_.py" afterPath="$PROJECT_DIR$/Restrictions_/TileRestriction_.py" />
+      <change beforePath="$PROJECT_DIR$/Schedule.py" afterPath="$PROJECT_DIR$/Schedule.py" />
+      <change beforePath="$PROJECT_DIR$/apps/conv/convMedium.settings" afterPath="$PROJECT_DIR$/apps/conv/convMedium.settings" />
+      <change beforePath="$PROJECT_DIR$/apps/multi_simple.cpp" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/apps/multi_simple.settings" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/ok.bin" afterPath="" />
       <change beforePath="$PROJECT_DIR$/test.cpp" afterPath="$PROJECT_DIR$/test.cpp" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,99 +54,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TileOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
+      <file leaf-file-name="Better_HalideAutotuner.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Heuristics/Better_HalideAutotuner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+            <state relative-caret-position="3168">
+              <caret line="147" column="22" lean-forward="false" selection-start-line="147" selection-start-column="22" selection-end-line="147" selection-end-column="22" />
               <folding>
-                <element signature="e#0#61#0" expanded="true" />
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReorderOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py">
+      <file leaf-file-name="Save_excel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Save_excel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" column="15" lean-forward="false" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+            <state relative-caret-position="816">
+              <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4488">
+              <caret line="199" column="0" lean-forward="false" selection-start-line="199" selection-start-column="0" selection-end-line="199" selection-end-column="0" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplitOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
+      <file leaf-file-name="global_information.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/global_information.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+            <state relative-caret-position="168">
+              <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParallelOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="19" column="65" lean-forward="false" selection-start-line="19" selection-start-column="65" selection-end-line="19" selection-end-column="65" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UnrollRestriction_.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Restrictions_/UnrollRestriction_.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="39" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FuseOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComputeAtOptimizationGenerator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VectorizeRestriction_.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Restrictions_/VectorizeRestriction_.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Schedule.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Schedule.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Schedule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+            <state relative-caret-position="768">
+              <caret line="47" column="19" lean-forward="false" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -114,14 +110,54 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComputeAtRestriction_.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py">
+      <file leaf-file-name="GenerateSchedules.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="161" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+            <state relative-caret-position="2136">
+              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="convMedium.settings" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/conv/convMedium.settings">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings_conv.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/conv/settings_conv.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reluMedium.settings" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/reluMedium.settings">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="relu.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/relu.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -138,36 +174,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>there</find>
-      <find>StoreA</find>
-      <find>def generate</find>
-      <find>class ReorderOpti</find>
-      <find>def res</find>
-      <find>class Re</find>
-      <find>class Fuse</find>
-      <find>class S</find>
-      <find>class Reorder</find>
-      <find>ReorderOpti</find>
-      <find>class ReorderO</find>
-      <find>def indexOut</find>
-      <find>class ReorderRes</find>
-      <find>class Til</find>
-      <find>FuseRes</find>
-      <find>class Com</find>
-      <find>class Sch</find>
-      <find>class C</find>
-      <find>SplitRes</find>
-      <find>ComputeAtHill</find>
-      <find>class FuseOpti</find>
-      <find>class Reor</find>
-      <find>class Para</find>
-      <find>class Spl</find>
-      <find>class Sto</find>
-      <find>Restriction</find>
       <find>class Vec</find>
-      <find>class Tile</find>
-      <find>class Unr</find>
-      <find>class ReorderS</find>
+      <find>search_for</find>
+      <find>def vars_of_f</find>
+      <find>search_for_</find>
+      <find>class Vect</find>
+      <find>consumer.lis</find>
+      <find>split_res</find>
+      <find>code</find>
+      <find>json</find>
+      <find>ReorderOpt</find>
+      <find>str</find>
+      <find>str__</find>
+      <find>exit(0)</find>
+      <find>fuseRes</find>
+      <find>fuse</find>
+      <find>test_sche</find>
+      <find>test_sc</find>
+      <find>class Pa</find>
+      <find>class Par</find>
+      <find>copy</find>
+      <find>splitF</find>
+      <find>nameVa</find>
+      <find>extentVar</find>
+      <find>go_left_right</find>
+      <find>test_sched</find>
+      <find>len(</find>
+      <find>test_sch</find>
+      <find>TileOpti</find>
+      <find>fused_var</find>
+      <find>ExcelW</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -182,26 +218,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/timing_prefix.h" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/ScheduleExecution.py" />
-        <option value="$PROJECT_DIR$/StorageManager.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/Program.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/Heuristics/Heuristic_test_restrictions.py" />
-        <option value="$PROJECT_DIR$/GenerateSchedules.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py" />
-        <option value="$PROJECT_DIR$/../recup/AGHalide-copy/global_values.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/global_information.py" />
-        <option value="$PROJECT_DIR$/GenerationOfOptimizations/settings.py" />
-        <option value="$PROJECT_DIR$/Restrictions.py" />
-        <option value="$PROJECT_DIR$/Restrictions/Restriction.py" />
-        <option value="$PROJECT_DIR$/Restrictions/SplitRestriction.py" />
-        <option value="$PROJECT_DIR$/Restrictions/VectorizeRestriction.ipynb" />
-        <option value="$PROJECT_DIR$/Restrictions/ComputeAtRestriction.py" />
         <option value="$PROJECT_DIR$/Restrictions/FuseRestriction.py" />
         <option value="$PROJECT_DIR$/Restrictions/ParallelRestriction.py" />
         <option value="$PROJECT_DIR$/Restrictions/ReorderRestriction.py" />
@@ -210,17 +226,11 @@
         <option value="$PROJECT_DIR$/Restrictions/UnrollRestriction.py" />
         <option value="$PROJECT_DIR$/Restrictions/VectorizeRestriction.py" />
         <option value="$PROJECT_DIR$/Restrictions_/ReorderRestriction.py" />
-        <option value="$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py" />
-        <option value="$PROJECT_DIR$/Restrictions_/ReorderRestriction_.py" />
-        <option value="$PROJECT_DIR$/Restrictions_/SplitRestriction_.py" />
         <option value="$PROJECT_DIR$/Restrictions_/StoreAtRestriction_.py" />
-        <option value="$PROJECT_DIR$/Restrictions_/TileRestriction_.py" />
         <option value="$PROJECT_DIR$/Restrictions_/VectorizeRestriction_.py" />
         <option value="$PROJECT_DIR$/Restrictions_/UnrollRestriction_.py" />
         <option value="$PROJECT_DIR$/Restrictions_/ParallelRestriction_.py" />
         <option value="$PROJECT_DIR$/Restrictions_/FuseRestriction_.py" />
-        <option value="$PROJECT_DIR$/Heuristics/Heuristic_reorder_explore.py" />
-        <option value="$PROJECT_DIR$/Schedule.py" />
         <option value="$PROJECT_DIR$/Optimizations/ComputeAtOptimization.py" />
         <option value="$PROJECT_DIR$/Optimizations/FuseOptimization.py" />
         <option value="$PROJECT_DIR$/Optimizations/Optimization.py" />
@@ -233,6 +243,32 @@
         <option value="$PROJECT_DIR$/Optimizations/UnrollOptimization.py" />
         <option value="$PROJECT_DIR$/Optimizations/Schedule.py" />
         <option value="$PROJECT_DIR$/Optimizations/ReorderStorageOptimization.py" />
+        <option value="$PROJECT_DIR$/../recup/AGHalide-copy/reorderHeuristic.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Heuristic_reorder_explore.py" />
+        <option value="$PROJECT_DIR$/Restrictions_/ReorderRestriction_.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Heuristic_reorder_analytique.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Heuristique_Tile_Hill_Climibing.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Heuristic_best_reorder.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py" />
+        <option value="$PROJECT_DIR$/Restrictions_/SplitRestriction_.py" />
+        <option value="$PROJECT_DIR$/Program.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py" />
+        <option value="$PROJECT_DIR$/Restrictions_/TileRestriction_.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Heuristic_HalideAutotuner.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Exhaustive_search.py" />
+        <option value="$PROJECT_DIR$/Heuristics/Better_HalideAutotuner.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/global_information.py" />
+        <option value="$PROJECT_DIR$/GenerationOfOptimizations/settings.py" />
+        <option value="$PROJECT_DIR$/Schedule.py" />
+        <option value="$PROJECT_DIR$/GenerateSchedules.py" />
+        <option value="$PROJECT_DIR$/Save_excel.py" />
+        <option value="$PROJECT_DIR$/apps/conv/settings_conv.json" />
+        <option value="$PROJECT_DIR$/apps/relu.json" />
       </list>
     </option>
   </component>
@@ -265,6 +301,16 @@
               <item name="HalideAutotuner" type="b2602c69:ProjectViewProjectNode" />
               <item name="HalideAutotuner" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="HalideAutotuner" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HalideAutotuner" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HalideAutotuner" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HalideAutotuner" type="462c0819:PsiDirectoryNode" />
+              <item name="GenerationOfOptimizations" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -272,7 +318,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../recup/AGHalide-copy/settings.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../recup/AGHalide-copy/Heuristic_3_exploring_random.py" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -301,28 +348,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="73" y="-4" width="1847" height="1084" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25319266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="0" y="0" width="823" height="884" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="0" y="0" width="823" height="884" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -343,450 +384,347 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/StorageManager.py">
+    <entry file="file://$PROJECT_DIR$/Optimizations/ReorderOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/TileOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/StoreAtOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/VectorizeOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/UnrollOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/ReorderStorageOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/SplitOptimization.py" />
+    <entry file="file://$PROJECT_DIR$/Optimizations/Schedule.py" />
+    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/reorderHeuristic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="144">
+          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2088">
-          <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Schedule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Machine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/Program.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="263" column="24" lean-forward="false" selection-start-line="263" selection-start-column="24" selection-end-line="263" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/Heuristic_1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="35" column="31" lean-forward="false" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/OptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/Schedule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5280">
-          <caret line="239" column="6" lean-forward="false" selection-start-line="239" selection-start-column="6" selection-end-line="240" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timing_prefix.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="48" column="4" lean-forward="true" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="19" column="65" lean-forward="false" selection-start-line="19" selection-start-column="65" selection-end-line="19" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StorageManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2256">
-          <caret line="102" column="51" lean-forward="false" selection-start-line="102" selection-start-column="51" selection-end-line="102" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Program.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="126" column="38" lean-forward="false" selection-start-line="126" selection-start-column="38" selection-end-line="126" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristic_test_restrictions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="32" column="45" lean-forward="true" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/HalideSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="1305" column="0" lean-forward="true" selection-start-line="1305" selection-start-column="0" selection-end-line="1315" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="15" lean-forward="false" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/global_values.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="39" column="37" lean-forward="true" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/global_information.py">
+    <entry file="file://$PROJECT_DIR$/Restrictions_/StoreAtRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
-          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <caret line="3" column="38" lean-forward="false" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
+    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristic_reorder_explore.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="98" column="32" lean-forward="false" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
+        <state relative-caret-position="727">
+          <caret line="43" column="97" lean-forward="true" selection-start-line="37" selection-start-column="4" selection-end-line="43" selection-end-column="97" />
           <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ScheduleExecution.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="64" column="22" lean-forward="true" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="32" column="36" lean-forward="false" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions/VectorizeRestriction.ipynb" />
-    <entry file="file://$PROJECT_DIR$/Restrictions_/Restriction_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="823">
-          <caret line="118" column="14" lean-forward="true" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions_/TileRestriction_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="161" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions_/ParallelRestriction_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#2450#4174#0" expanded="false" />
+            <element signature="e#9461#11132#0" expanded="false" />
+            <element signature="e#11200#13688#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Restrictions_/ReorderRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#19#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions_/SplitRestriction_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions_/StoreAtRestriction_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="823">
+          <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Restrictions_/UnrollRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="264">
+          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Restrictions_/VectorizeRestriction_.py">
+    <entry file="file://$PROJECT_DIR$/Restrictions_/ParallelRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="288">
+          <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py">
+    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/StorageManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="3024">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/Schedule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="309" column="52" lean-forward="true" selection-start-line="309" selection-start-column="52" selection-end-line="309" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristic_reorder_analytique.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristique_Tile_Hill_Climibing.py" />
+    <entry file="file://$PROJECT_DIR$/Machine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Restrictions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="848">
+          <caret line="118" column="14" lean-forward="false" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StorageManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="29" column="41" lean-forward="true" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/OptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristic_best_reorder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2136">
+          <caret line="100" column="79" lean-forward="false" selection-start-line="100" selection-start-column="79" selection-end-line="100" selection-end-column="79" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Restrictions_/FuseRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="25" column="46" lean-forward="true" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="648">
+          <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristic_reorder_explore.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="285" column="0" lean-forward="true" selection-start-line="285" selection-start-column="0" selection-end-line="285" selection-end-column="0" />
-          <folding>
-            <element signature="e#619#2356#0" expanded="false" />
-            <element signature="e#2441#4155#0" expanded="false" />
-            <element signature="e#4229#9370#0" expanded="false" />
-            <element signature="e#9445#11116#0" expanded="false" />
-            <element signature="e#11185#13673#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/ComputeAtOptimization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/FuseOptimization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/Optimization.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-          <folding />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/ParallelOptimization.py">
+    <entry file="file://$PROJECT_DIR$/Restrictions_/VectorizeRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="552">
+          <caret line="27" column="38" lean-forward="false" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/ReorderOptimization.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ComputeAtOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="1800">
+          <caret line="81" column="41" lean-forward="false" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/TileOptimization.py">
+    <entry file="file://$PROJECT_DIR$/Restrictions_/SplitRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="45" lean-forward="false" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+        <state relative-caret-position="360">
+          <caret line="24" column="87" lean-forward="false" selection-start-line="24" selection-start-column="87" selection-end-line="24" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/FuseOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="20" column="47" lean-forward="false" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
           <folding>
-            <element signature="e#0#19#0" expanded="false" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/StoreAtOptimization.py">
+    <entry file="file://$PROJECT_DIR$/Restrictions_/ComputeAtRestriction_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="37" lean-forward="false" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="1872">
+          <caret line="82" column="59" lean-forward="false" selection-start-line="82" selection-start-column="59" selection-end-line="82" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/VectorizeOptimization.py">
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/SplitOptimizationGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+        <state relative-caret-position="2400">
+          <caret line="105" column="53" lean-forward="false" selection-start-line="105" selection-start-column="53" selection-end-line="105" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ReorderOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="29" column="12" lean-forward="false" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/ParallelOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Program.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Restrictions_/TileRestriction_.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2400">
+          <caret line="105" column="8" lean-forward="false" selection-start-line="105" selection-start-column="8" selection-end-line="105" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../recup/AGHalide-copy/Heuristic_3_exploring_random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3048">
+          <caret line="139" column="94" lean-forward="false" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/TileOptimizationGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2688">
+          <caret line="112" column="21" lean-forward="true" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
           <folding>
-            <element signature="e#0#19#0" expanded="false" />
+            <element signature="e#0#61#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/UnrollOptimization.py">
+    <entry file="file://$PROJECT_DIR$/ScheduleExecution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="936">
+          <caret line="56" column="17" lean-forward="false" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristics/Exhaustive_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="17" column="44" lean-forward="false" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
           <folding>
-            <element signature="e#0#19#0" expanded="false" />
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristics/Heuristic_HalideAutotuner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5568">
+          <caret line="247" column="22" lean-forward="false" selection-start-line="247" selection-start-column="22" selection-end-line="247" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristics/Better_HalideAutotuner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3168">
+          <caret line="147" column="22" lean-forward="false" selection-start-line="147" selection-start-column="22" selection-end-line="147" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/global_information.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerationOfOptimizations/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4488">
+          <caret line="199" column="0" lean-forward="false" selection-start-line="199" selection-start-column="0" selection-end-line="199" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Schedule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        <state relative-caret-position="768">
+          <caret line="47" column="19" lean-forward="false" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/ReorderStorageOptimization.py">
+    <entry file="file://$PROJECT_DIR$/GenerateSchedules.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state relative-caret-position="2136">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/SplitOptimization.py">
+    <entry file="file://$PROJECT_DIR$/apps/conv/convMedium.settings">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#19#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Optimizations/Schedule.py">
+    <entry file="file://$PROJECT_DIR$/Save_excel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="816">
+          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/conv/settings_conv.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/reluMedium.settings">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/relu.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

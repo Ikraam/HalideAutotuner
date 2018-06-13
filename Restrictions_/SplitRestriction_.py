@@ -13,7 +13,18 @@ class SplitRestriction(Restriction) :
 
 
 # Split Factor Restriction is a restriction on split optimization for function func over the variable
-# variable. It aims to define the set of factors that a split optimization can take 
+# variable. It aims to define the set of factors that a split optimization can take
+
+class SplitHillRestriction(SplitRestriction):
+    def __init__(self, func,hill, enable):
+        super(SplitHillRestriction, self).__init__(func, enable)
+        self.hill = hill
+
+    '''def restrict(self, schedule, program, index, set_restrictions, id_program, \
+                                                                index_order_optimization, \
+                                                                order_optimization):'''
+
+
 class SplitFactorRestriction(SplitRestriction):
     def __init__(self, func, fixe_split_factor, variable, max_nesting_of_split, max_split_factor, skip_one, pow_two_split, enable):
         super(SplitFactorRestriction, self).__init__(func, enable)
@@ -21,7 +32,7 @@ class SplitFactorRestriction(SplitRestriction):
         # When variable must be splitted with one fixed split factor.
         self.fixe_split_factor = fixe_split_factor
         # When a variable can be splitted recursively.
-        self.max_nesting_of_split=max_nesting_of_split
+        self.max_nesting_of_split = max_nesting_of_split
         # When a variable can be splitted from 1 to max_split_factor.
         self.max_split_factor = max_split_factor
         # When a variable is splitted from 2 to max.
@@ -51,6 +62,13 @@ class SplitFactorRestriction(SplitRestriction):
            first_factor = 2
         if self.max_nesting_of_split != None :
             nesting = self.max_nesting_of_split
+
+        if self.fixe_split_factor != None :
+           if self.fixe_split_factor <= dim // 2 :
+               first_factor = self.fixe_split_factor
+           else :
+               first_factor = dim // 2
+           last_factor = first_factor
 
 
         if self.pow_two_split :

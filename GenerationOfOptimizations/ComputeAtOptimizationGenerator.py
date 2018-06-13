@@ -82,7 +82,7 @@ class ComputeAtOptimizationGenerator(OptimizationGenerator):
               if back_execution == True :
                  producer = schedule.optimizations[index].func
                  consumer =  schedule.optimizations[index].consumer
-                 for var in consumer.list_variables:
+                 for var in schedule.vars_of_func(consumer) :
                     schedule.optimizations[index].variable = var
                     ComputeAtOptimizationGenerator.explore_possibilities(schedule, index + 1, \
                                                                          program, elemSupp, \

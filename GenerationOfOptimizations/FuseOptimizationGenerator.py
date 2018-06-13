@@ -1,6 +1,7 @@
 import Schedule
 import settings
 from GenerationOfOptimizations.OptimizationGenerator import *
+from Program import Variable
 
 
 class FuseOptimizationGenerator(OptimizationGenerator):
@@ -44,13 +45,63 @@ class FuseOptimizationGenerator(OptimizationGenerator):
 
 
 
+  @staticmethod
+  def update_program_after_fuse(program, schedule):
+      new_program = program.copy_program()
+      for optim in schedule.optimizations :
+         if isinstance(optim, Schedule.FuseOptimization) :
+           if optim.enable == True :
+             for function in new_program.functions :
+                 if function == optim.func :
+                     break
+             if optim.variable1 in function.list_variables :
+                 index_1 = function.list_variables.index(optim.variable1)
+             else :
+                 index_1 = len(function.list_variables)-1
+             if optim.variable2 in function.list_variables :
+                 index_2 = function.list_variables.index(optim.variable2)
+             else :
+                 index_2 = len(function.list_variables)-2
 
+             max_index = max(index_1, index_2)
+             min_index = min(index_1, index_2)
+             function.list_variables[max_index] = Variable(optim.variable1.name_var+\
+                                                             optim.variable2.name_var+'$', \
+                                                             optim.variable1.extent_var*\
+                                                             optim.variable2.extent_var, \
+                                                             optim.variable1.type)
+             function.list_variables.pop(min_index)
+
+      return new_program
 
 
 
   @staticmethod
   def update_program(program, schedule):
      new_program = program.copy_program()
+     '''for optim in schedule.optimizations :
+         if isinstance(optim, Schedule.FuseOptimization) :
+           if optim.enable == True :
+             for function in new_program.functions :
+                 if function == optim.func :
+                     break
+             if optim.variable1 in function.list_variables :
+                 index_1 = function.list_variables.index(optim.variable1)
+             else :
+                 index_1 = len(function.list_variables)-1
+             if optim.variable2 in function.list_variables :
+                 index_2 = function.list_variables.index(optim.variable2)
+             else :
+                 index_2 = len(function.list_variables)-2
+
+             max_index = max(index_1, index_2)
+             min_index = min(index_1, index_2)
+             function.list_variables[max_index] = Variable(optim.variable1.name_var+\
+                                                             optim.variable2.name_var+'$', \
+                                                             optim.variable1.extent_var*\
+                                                             optim.variable2.extent_var, optim.variable1.type)
+             function.list_variables.pop(min_index)'''
+
      return new_program
 
 

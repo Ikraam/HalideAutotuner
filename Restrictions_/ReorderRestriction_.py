@@ -24,6 +24,7 @@ class ReorderFixRestriction(ReorderRestriction):
     def __str__(self):
         return 'reorder fix :'+str(self.fix_reorder)
 
+
     def restrict(self, schedule, program, index, set_restrictions, id_program, \
                                                                 index_order_optimization, \
                                                                 order_optimization, info):

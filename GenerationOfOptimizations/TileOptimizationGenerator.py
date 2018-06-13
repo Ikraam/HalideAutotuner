@@ -24,9 +24,10 @@ class TileOptimizationGenerator(OptimizationGenerator):
      # If we have a valid schedule which contains only tile optimizations
      if len(schedule.optimizations) == index:
         # append next optimizations and explore them
-        settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, index_order_optimization, \
-                                          order_optimization)
 
+        settings.append_and_explore_optim(schedule, program, id_program, set_restrictions, \
+                                          index_order_optimization, \
+                                          order_optimization)
         return schedule
 
      else:
@@ -59,9 +60,8 @@ class TileOptimizationGenerator(OptimizationGenerator):
                 var_out = schedule.optimizations[index].variable_out
                 dim_in = var_in.extent_var
                 dim_out = var_out.extent_var
-                TileOptimizationGenerator.replace_var_split(program, func, var_in, tile_factor_in)
-                TileOptimizationGenerator.replace_var_split(program, func, var_out, tile_factor_out)
-
+                TileOptimizationGenerator.replace_var_tile(program, func, var_in, tile_factor_in, var_out,\
+                                                           tile_factor_out)
                 elemSupp = list()
                 schedule.optimizations = TileOptimizationGenerator.update_optim__after_tile(\
                                                                             schedule.optimizations,\
@@ -80,6 +80,10 @@ class TileOptimizationGenerator(OptimizationGenerator):
                 TileOptimizationGenerator.replace_var_un_split(program, func, var_in, toRemember[0])
                 TileOptimizationGenerator.replace_var_un_split(program, func, var_out, toRemember[1])
 
+        else :
+            TileOptimizationGenerator.explore_possibilities(schedule, index + 1, program, list(), \
+                                                                set_restrictions, id_program, \
+                                                                index_order_optimization, order_optimization)
 
     @staticmethod
     def nesting_split_of_var(setRestrictions, func, var):
@@ -150,6 +154,8 @@ class TileOptimizationGenerator(OptimizationGenerator):
            if TileOptimizationGenerator.split_again(splittedVar, level_split_of_var):
              tile_optimization = Schedule.TileOptimization(func,1,1, var_outer_in, var_outer_out)
              new_list.append(tile_optimization)
+             tile_optimization = Schedule.TileOptimization(func,1,1, var_inner_in, var_inner_out)
+             new_list.append(tile_optimization)
 
         else :
             if isinstance(optimizations[point_to_index], Schedule.TileOptimization) == False :
@@ -165,7 +171,7 @@ class TileOptimizationGenerator(OptimizationGenerator):
 
 
     @staticmethod
-    def replace_var_split(program, func, var, split_factor):
+    def replace_var_tile(program, func, var_in, factor_in, var_out, factor_out):
      '''
 
       :param func: the function concerned by the split optimization
@@ -174,18 +180,25 @@ class TileOptimizationGenerator(OptimizationGenerator):
       :param program: information about functions of the program
       :return: update on list variables of function func in program
      '''
-     if split_factor > 1 :
+     if (factor_in > 1) | (factor_out > 1) :
        for function in program.functions:
         if function == func :
             new_list_var = list()
             for variable in func.list_variables:
-                if variable == var :
-                    dim_var = variable.extent_var
-                    variable = Variable(var.name_var +'i', split_factor, var.type)
+                if variable == var_in :
+                    variable = Variable(var_in.name_var +'i', factor_in, var_in.type)
                     new_list_var.append(variable)
-                    variable = Variable(var.name_var +'o', dim_var // split_factor, var.type)
+                    variable = Variable(var_out.name_var +'i', factor_out, var_out.type)
                     new_list_var.append(variable)
                 else :
+                  if variable == var_out :
+                    variable = Variable(var_in.name_var +'o', var_in.extent_var // factor_in, \
+                                        var_in.type)
+                    new_list_var.append(variable)
+                    variable = Variable(var_out.name_var +'o', var_out.extent_var // factor_out, \
+                                        var_out.type)
+                    new_list_var.append(variable)
+                  else :
                     new_list_var.append(variable)
             func.list_variables = new_list_var
 

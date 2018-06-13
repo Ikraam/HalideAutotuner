@@ -1,0 +1,21 @@
+{"output_size": "64, 64, 32, 32",
+ "name_program": "convolution_medium",
+ "output_type": "float",
+ "RVars":["r.x","r.y","r.z"],
+ "constantes":{},
+ "functions": [
+        {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 68}, {"y": 68}, {"c" :16},
+              {"n": 32}], "calls": []},
+        {"name": "infilter", "vars": ["x", "y","c","z"], "estime":[{"x" : 5}, {"y" : 5},{"c" : 16},
+              {"z": 32}], "calls": []},
+	    {"name": "bias", "vars": ["z"], "estime":[{"z" : 32}], "calls": []},
+        {"name": "conv", "vars": ["x", "y","z","n"], "estime":[{"x" : 64}, {"y" : 64},{"z" : 32},
+              {"n": 32}], "calls": ["bias"],  "legal_vectorize": "x",
+              "instruction":"conv(x,y,z,n)=bias(z)","reuse":["x","y"]},
+        {"name": "conv.update(0)", "vars": ["r.x","r.y","r.z","x", "y","z","n"],
+              "estime":[{"r.x":5},{"r.y":5},{"r.z":16},{"x":64}, {"y":64},{"z":32},{"n":32}],
+              "calls": ["input", "infilter"],
+              "instruction":"conv(x,y,z,n)=conv(x,y,z,n)+input(x+r.x,y+r.y,r.z,n)*infilter(r.x,r.y,r.z,z)",
+              "legal_vectorize": "x","reuse":["x","y"]}
+]}
+

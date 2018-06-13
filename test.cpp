@@ -186,8 +186,8 @@ int main(int argc, char **argv) {
     // This code is a test code for the convolution
     Var i("i"), j("j");
     //Var ti[3], tj[3];
-    
-    const int sum_size = 400; // shared dimension between A and B 
+    const int s = 8;
+    const int sum_size = 500; // shared dimension between A and B 
 
         // Swizzle A for better memory order in the inner loop.
     Func A("A"), B("B"), Btmp("Btmp"), As("As"), Atmp("Atmp");
@@ -195,11 +195,11 @@ int main(int argc, char **argv) {
     Func prod("prod");
     Func result_("result_");
     Func AB("AB");
-    RDom rv(0, 400);
+    RDom rv(0, 500);
 
-    Halide::Buffer<float> A_ (8,400);
-    Halide::Buffer<float> B_ (400,4096);
-    Halide::Buffer<float> D_ (8,4096);
+    Halide::Buffer<float> A_ (1000,500);
+    Halide::Buffer<float> B_ (500,2000);
+    Halide::Buffer<float> D_ (1000,2000);
     Halide::Buffer<float> outputBuf;
     Halide::Buffer<float> outputBufNaive;
     int m,n,l;
@@ -229,8 +229,8 @@ int main(int argc, char **argv) {
     C_(i,j) = D_(i,j);
     AB(i,j) = D_(i,j);
     Atmp(i, j) = A_(i, j);  
-    As(i, j, z) = Atmp(2*z + i, j);
-    A(i, j) = As(i % 2, j, i / 2);
+    As(i, j, z) = Atmp(s*z + i, j);
+    A(i, j) = As(i % s, j, i / s);
     Btmp(i, j) = B_(i, j);
     B(i, j) = Btmp(i, j);
     
@@ -247,13 +247,22 @@ int main(int argc, char **argv) {
     {
         std::map<std::string, Halide::Internal::Function> funcs = Halide::Internal::find_transitive_calls((result_).function());
         
-         Var ij$("ij$");
-        As.reorder(z,j,i);
-        A.reorder(j,i);
-        B.reorder(j,i);
-        prod.reorder(j,i,k);
-        AB.update(0).reorder(rv,j,i);
-        result_.reorder(j,i);As.fuse(i, j , ij$);A.fuse(i, j , ij$);B.fuse(i, j , ij$);As.parallel(ij$);A.parallel(ij$);B.parallel(ij$);prod.parallel(k);AB.update(0).parallel(i);result_.parallel(i);AB.update(0).unroll(rv);As.compute_root();A.compute_root();B.compute_root();prod.compute_root();AB.compute_root();        
+         Var ii("ii");
+         Var io("io");
+         Var ji("ji");
+         Var jo("jo");
+         Var zi("zi");
+         Var zo("zo");
+         RVar rvi("rvi");
+         RVar rvo("rvo");
+         result_.tile(i, j ,io, jo ,ii, ji, 16, 16);
+         As.split(j, jo , ji ,16);
+         As.split(z, zo , zi ,16);
+         AB.update(0).split(i, io , ii ,16);
+         AB.update(0).split(rv, rvo , rvi ,16);
+        As.reorder(zi,zo,ji,jo,i);
+        AB.update(0).reorder(rvi,rvo,j,ii,io);
+        result_.reorder(ii,ji,io,jo);As.parallel(i);AB.update(0).parallel(io);result_.parallel(jo);As.vectorize(ji);AB.update(0).vectorize(ii);result_.vectorize(ii);As.compute_at(AB,j);AB.compute_root();        
         outputBuf=_autotune_timing_stub(result_, false);
     } 
     ;

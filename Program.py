@@ -1,7 +1,7 @@
 import json
 import re
 import Schedule
-
+import hashlib
 
 
 class Variable():
@@ -34,13 +34,15 @@ class Variable():
 
 class Function():
 
-    def __init__(self, name_function, list_variables, list_producers, legal_vectorize, instruction, reuses):
+    def __init__(self, name_function, list_variables, list_producers, legal_vectorize, instruction, \
+                 reuses, tile_level):
         self.name_function = name_function
         self.list_variables = list_variables
         self.list_producers = list_producers
         self.legal_vectorize = legal_vectorize
         self.instruction = instruction
         self.reuses = reuses
+        self.tile_level = tile_level
 
     def __str__(self):
         return self.name_function
@@ -57,8 +59,15 @@ class Function():
 
 
 
-
-
+    def vars_of_func_dict_schedule(self, schedule):
+        '''
+        :return: a dictionary : {name_var1 : object_var1, name_var2 : object_var2} so we can access the variables object
+                 using their names
+        '''
+        dictio = dict()
+        for var in schedule.vars_of_func(self) :
+            dictio[var.name_var] = var
+        return dictio
 
     def vars_of_func_dict(self):
         '''
@@ -70,6 +79,7 @@ class Function():
             dictio[var.name_var] = var
         return dictio
 
+
     def outermost_variable(self, schedule):
         '''
 
@@ -79,21 +89,25 @@ class Function():
         list_vars = schedule.vars_of_func(self)
         return list_vars[len(list_vars)-1]
 
-    def search_for_inner(self, legal_vectorize):
+
+    def search_for_vectorize(self, legal_vectorize, schedule):
         '''
 
         :param legal_vectorize: index name of the legal vectorized loop.
         :return: the innermost legal vectorized loop index
         '''
-        vars_dict = self.vars_of_func_dict()
+        vars_dict = self.vars_of_func_dict_schedule(schedule)
         legal_vectorize_searched = legal_vectorize
-        found = False
-        while found == False :
-         legal_vectorize_searched = legal_vectorize_searched+'i'
-         for var in vars_dict.keys():
+        if legal_vectorize in vars_dict.keys() :
+            return vars_dict[legal_vectorize]
+        else :
+         found = False
+         while found == False :
+          legal_vectorize_searched = legal_vectorize_searched+'i'
+          for var in vars_dict.keys():
             if var == legal_vectorize_searched :
                 return vars_dict[var]
-        return vars_dict[var]
+        return None
 
 
     def two_innermost_variable_for_unroll(self, schedule):
@@ -148,11 +162,11 @@ class Program():
         ## As .settings file is a json file, let's load it
         with open(settingsFileName) as fd:
             settings = json.load(fd)
-        listOfFunctions = list()
+        list_of_functions = list()
         # Let's init program variables
-        outputSize = settings['output_size']
+        output_size = settings['output_size']
         args.output_size = settings['output_size']
-        outputType = settings['output_type']
+        output_type = settings['output_type']
         nameProgram = settings['name_program']
         args.nameProgram = settings['name_program']
         args.output_type = settings['output_type']
@@ -166,6 +180,10 @@ class Program():
         else :
             constantes = None
         for func in settings['functions']:
+            if 'tile_level' in func :
+                tile_level = func['tile_level']
+            else :
+                tile_level = 1
             if 'instruction' in func :
                 instruction=func['instruction']
             else :
@@ -174,7 +192,7 @@ class Program():
                 legal_vectorize=func['legal_vectorize']
             else :
                 legal_vectorize = None
-            listVariables = list()
+            list_variables = list()
             for estime in func['estime']:
                 for var in estime.keys():
                    if RVars != None :
@@ -182,19 +200,23 @@ class Program():
                         type_var = 'RVar'
                     else :
                         type_var = 'Var'
-                   newVar = Variable(var, estime[var], type_var)
-                   listVariables.append(newVar)
-            listProducers = list()
+                   new_var = Variable(var, estime[var], type_var)
+                   list_variables.append(new_var)
+            list_producers = list()
             for producer in func['calls']:
-                listProducers.append(producer)
-            listReuses = list()
+                list_producers.append(producer)
+            list_reuses = list()
             if 'reuse' in func :
                 for reuse in func['reuse']:
-                    listReuses.append(reuse)
-            newFunc = Function(func['name'], listVariables, listProducers, legal_vectorize, instruction, listReuses)
-            listOfFunctions.append(newFunc)
+                    list_reuses.append(reuse)
+            new_func = Function(func['name'], list_variables, list_producers, legal_vectorize, instruction, list_reuses, tile_level)
+            list_of_functions.append(new_func)
         # Create the object program
-        program1 = Program(outputSize, outputType, listOfFunctions, nameProgram, RVars, constantes, args)
+
+        program1 = Program(output_size, output_type, list_of_functions, nameProgram, RVars, constantes, \
+                           args, None)
+        id_program = hashlib.md5(str(program1)).hexdigest()
+        program1.id = id_program
         return [program1, settings]
 
 
@@ -228,7 +250,7 @@ class Program():
 
 
 
-    def __init__(self, output_size, output_type, functions, name_program, RVars, constantes, args):
+    def __init__(self, output_size, output_type, functions, name_program, RVars, constantes, args, id):
         # outputSize represents the size of the output buffer
         self.output_size = output_size
         # outputType represents the type of the output buffer
@@ -242,6 +264,7 @@ class Program():
         # if there are constants
         self.constantes = constantes
         self.args = args
+        self.id = id
 
 
     def __str__(self):
@@ -275,5 +298,6 @@ class Program():
         list_func = list()
         for func in self.functions :
             list_func.append(func)
-        program = Program(self.output_size, self.output_type, list_func, self.name_program, self.RVars, self.constantes, self.args)
+        program = Program(self.output_size, self.output_type, list_func, \
+                          self.name_program, self.RVars, self.constantes, self.args, self.id)
         return program

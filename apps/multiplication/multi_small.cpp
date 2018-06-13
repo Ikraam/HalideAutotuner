@@ -17,8 +17,8 @@ int main(int argc, char **argv) {
     // This code is a test code for the convolution
     Var i("i"), j("j");
     //Var ti[3], tj[3];
-    
-    const int sum_size = 400; // shared dimension between A and B 
+    const int s = 5;
+    const int sum_size = 10; // shared dimension between A and B 
 
         // Swizzle A for better memory order in the inner loop.
     Func A("A"), B("B"), Btmp("Btmp"), As("As"), Atmp("Atmp");
@@ -26,11 +26,11 @@ int main(int argc, char **argv) {
     Func prod("prod");
     Func result_("result_");
     Func AB("AB");
-    RDom rv(0, 400);
+    RDom rv(0, 10);
 
-    Halide::Buffer<float> A_ (8,400);
-    Halide::Buffer<float> B_ (400,4096);
-    Halide::Buffer<float> D_ (8,4096);
+    Halide::Buffer<float> A_ (100,10);
+    Halide::Buffer<float> B_ (10,200);
+    Halide::Buffer<float> D_ (100,200);
     Halide::Buffer<float> outputBuf;
     Halide::Buffer<float> outputBufNaive;
     int m,n,l;
@@ -60,8 +60,8 @@ int main(int argc, char **argv) {
     C_(i,j) = D_(i,j);
     AB(i,j) = D_(i,j);
     Atmp(i, j) = A_(i, j);  
-    As(i, j, z) = Atmp(2*z + i, j);
-    A(i, j) = As(i % 2, j, i / 2);
+    As(i, j, z) = Atmp(s*z + i, j);
+    A(i, j) = As(i % s, j, i / s);
     Btmp(i, j) = B_(i, j);
     B(i, j) = Btmp(i, j);
     

@@ -2,7 +2,7 @@
  "name_program": "convolution_medium", 
  "output_type": "float",
  "RVars":["r.x","r.y","r.z"],
- "constants":[],
+ "constantes":{},
  "functions": [ 
                {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 68}, {"y": 68}, {"c" :16}, {"n": 32}], "calls": []},
                {"name": "infilter", "vars": ["x", "y","c","z"], "estime":[{"x" : 5}, {"y" : 5},{"c" : 16},{"z": 32}], "calls": []},

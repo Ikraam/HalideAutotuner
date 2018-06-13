@@ -40,7 +40,7 @@ def generate_schedules_heuristic(program, args):
     # Launch exploration with restrictions
     schedule = Schedule(list(), args)
     settings.set_best_schedule(schedule)
-    settings.set_best_time_schedule(schedule.test_schedule(program, id_program))
+    settings.set_best_time_schedule(schedule.test_schedule(program.args, id_program))
     append_and_explore_optim(schedule, program, id_program, restrictions, 0, order_optimizations)
 
     # Get restrictions for the final exploration phase
@@ -49,9 +49,8 @@ def generate_schedules_heuristic(program, args):
     # Launch exploration with restrictions
     schedule = Schedule(list(), args)
     settings.set_best_schedule(schedule)
-    settings.set_best_time_schedule(schedule.test_schedule(program, id_program))
+    settings.set_best_time_schedule(schedule.test_schedule(program.args, id_program))
     append_and_explore_optim(schedule, program, id_program, restrictions, 0, order_optimizations)
-
 
 
 def get_best_reorder(program, id_program, args, order_optimizations, limit):
@@ -68,9 +67,9 @@ def get_best_reorder(program, id_program, args, order_optimizations, limit):
         schedule.optimizations.append(ReorderOptimization(function, function.list_variables, True))
         settings.set_best_schedule(schedule)
         # set the best execution time to the execution time of the naive reorder
-        settings.set_best_time_schedule(schedule.test_schedule(program, id_program))
+        settings.set_best_time_schedule(schedule.test_schedule(program.args, id_program))
         # define my restrictions : enable only ReorderOptimization for the current function
-        restrictions = define_restrictions_phase_01(program, function)
+        restrictions = define_restrictions_phase_01(program.args, function)
         # initialize an empty schedule to start the exploration
         schedule = Schedule(list(), args)
         # start the exhaustive exploration but with the restrictions defined above
@@ -85,7 +84,6 @@ def get_best_reorder(program, id_program, args, order_optimizations, limit):
                     best_reorder = optim
         best_reorder_function[function.name_function] = best_reorder
     return best_reorder_function
-
 
 
 def define_restrictions_phase_03(program, best_reorder_function):
@@ -187,8 +185,6 @@ def define_restrictions_phase_03(program, best_reorder_function):
     return restrictions
 
 
-
-
 def define_restrictions_phase_02(program, best_reorder_function):
     '''
     enable only significant optimizations, for example, we explore compute_at optimization using
@@ -221,7 +217,6 @@ def define_restrictions_phase_02(program, best_reorder_function):
                 restrictions.append(store_res)
 
     return restrictions
-
 
 
 def define_restrictions_phase_01(program, current_function):

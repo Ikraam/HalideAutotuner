@@ -12,6 +12,8 @@ from Restrictions_.SplitRestriction_ import *
 from Restrictions_.TileRestriction_ import *
 from Restrictions_.ReorderRestriction_ import *
 import ScheduleExecution
+import Save_excel
+from Save_excel import ExcelWriter
 
 
 
@@ -31,9 +33,14 @@ class Schedule:
                 string_to_return=string_to_return+str(optim)
         return string_to_return
 
-    def test_schedule(self, program, id_program):
-        sched_exec = ScheduleExecution.ScheduleExecution(program.args, 1000)
+    def test_schedule(self, args, id_program):
+        sched_exec = ScheduleExecution.ScheduleExecution(args, 1000)
         time = sched_exec.test_schedule(self, id_program)
+        if time < settings.get_best_time_schedule():
+            settings.set_best_time_schedule(time)
+            settings.set_best_schedule(self)
+        ExcelWriter.write_schedule_excel(self, time, settings.get_total_nb_schedule())
+        settings.set_total_nb_schedule(settings.get_total_nb_schedule()+1)
         return time
 
 
@@ -53,9 +60,7 @@ class Schedule:
                 if isinstance(optim, ReorderOptimization):
                     list_vars = optim.variables
 
-        list_of_variables = list()
-        for var in list_vars :
-            list_of_variables.append(var)
+        list_of_variables = list_vars[:]
         list_vars_name = list()
         for variable in list_of_variables :
             list_vars_name.append(variable.name_var)
@@ -410,19 +415,40 @@ class VectorizeOptimization(Optimization):
                     return restriction
         return None
 
+
+    @staticmethod
+    def search_for_vectorize(func, schedule):
+        for var in schedule.vars_of_func(func) :
+          if var.name_var == func.legal_vectorize :
+              return var
+        found = False
+        legal_vectorize_searched = func.legal_vectorize
+        nb_tour = 0
+        while found == False :
+          legal_vectorize_searched = legal_vectorize_searched+'i'
+          for var in schedule.vars_of_func(func):
+            if var.name_var == legal_vectorize_searched :
+                return var
+          nb_tour+=1
+          if nb_tour > len(schedule.optimizations):
+              found = True
+        return None
+
+
     @staticmethod
     def append_optimizations(program, schedule):
       new_schedule = schedule.copy_schedule()
       new_program = program.copy_program()
       for func in new_program.functions :
        if func.is_consumer():
-        if func.legal_vectorize not in func.vars_of_func_dict().keys() :
-            innermostVar_vectorize = func.search_for_inner(func.legal_vectorize)
-        else :
-            innermostVar_vectorize = func.vars_of_func_dict()[func.legal_vectorize]
+
+        innermostVar_vectorize = VectorizeOptimization.search_for_vectorize(func, \
+                                                                            schedule)
+        #innermostVar_vectorize = None
         ## We must check if it is the inner variable of a splitted one, or it's a RVar
-        splitted_var = False
-        for optim in new_schedule.optimizations :
+        if innermostVar_vectorize != None :
+         splitted_var = False
+         for optim in new_schedule.optimizations :
             if isinstance(optim, TileOptimization):
                if (optim.func == func) & (optim.tile_factor_in > 1) :
                   if optim.variable_in.name_var+'i' == innermostVar_vectorize.name_var :
@@ -439,7 +465,7 @@ class VectorizeOptimization(Optimization):
                      splitted_var = True
                      break
 
-        if (innermostVar_vectorize.type == 'RVar') | (splitted_var == True) :
+         if (innermostVar_vectorize.type == 'RVar') | (splitted_var == True) :
            new_schedule.optimizations.append(VectorizeOptimization(func, innermostVar_vectorize, False))
       return new_schedule
 

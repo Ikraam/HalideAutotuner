@@ -103,7 +103,7 @@ class SplitOptimizationGenerator(OptimizationGenerator):
 
     else:
         # If we are on a split optimization
-        if isinstance(schedule.optimizations[index],SplitOptimization) :
+        if isinstance(schedule.optimizations[index], Schedule.SplitOptimization) :
           # search for restrictions, if no restriction apply the default implementation
           restriction = schedule.optimizations[index].there_are_restrictions(set_restrictions)
           back_execution = True
