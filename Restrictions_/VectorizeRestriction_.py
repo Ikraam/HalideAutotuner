@@ -24,18 +24,17 @@ class VectorizeFixRestriction(VectorizeRestriction):
                                                                 index_order_optimization, \
                                                                 order_optimization):
        if self.enable == True :
-            optim = schedule.optimizations[index]
-            if re.match(self.legal_innermost+"(i)*",optim.variable.name_var):
-                if (self.fix == True) & (self.fixed_value != None) :
+          optim = schedule.optimizations[index]
+          if re.match(self.legal_innermost+"(i)*",optim.variable.name_var):
+            if (self.fix == True) & (self.fixed_value != None) :
                     schedule.optimizations[index].enable = self.fixed_value
                     VectorizeOptimizationGenerator.explore_possibilities(schedule, index+1,program,\
                                                                  list(),set_restrictions, id_program,\
                                                                  index_order_optimization, \
                                                                  order_optimization)
                     return False
-                else :
-                    return True
-            return True
+            else :
+                return True
        else :
            schedule.optimizations[index].enable = False
            VectorizeOptimizationGenerator.explore_possibilities(schedule, index+1,program,\

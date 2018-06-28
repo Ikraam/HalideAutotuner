@@ -1,0 +1,27 @@
+{"output_size": "512, 500, 100",
+ "name_program": "multiplication_lots_medium", 
+ "output_type": "float",
+ "RVars" : ["rv"],
+ "constantes" : {"s":8},
+ "functions": [ 
+               {"name": "Atmp", "vars": ["i", "j", "ll"], "estime":[{"i": 512}, {"j": 100}, {"ll":100}], "calls": []},
+
+               {"name": "As", "vars": ["i", "j","z", "ll"], "estime":[{"i" : 8}, {"j" : 100},{"z" : 64}, {"ll":100}], "calls": ["Atmp"], "legal_vectorize": "j", "instruction":"As(i, j, z, ll) = Atmp(s*z + i, j, ll)","reuse":[]},
+
+	       {"name": "A", "vars": ["i","j", "ll"], "estime":[{"i" : 512}, {"j":100}, {"ll":100}], "calls": [], "legal_vectorize": "i", "instruction":"A(i, j, ll) = As(i % s, j, i / 2, ll)","reuse":[]},
+
+               
+
+        	{"name": "B", "vars": ["i","j", "ll"],"estime":[{"i" : 100}, {"j" : 500}, {"ll":100}], "calls": [], "legal_vectorize": "i", "instruction":"B(i, j, ll) = Btmp(i, j, ll)","reuse":[]},
+
+		{"name": "prod", "vars": ["k","i","j", "ll"], "estime":[{"k" : 100},{"i" : 512}, {"j":500}, {"ll":100}], "calls": [], "legal_vectorize": "i", "instruction":"prod(k, i, j, ll) = A(i, k, ll) * B(k,j, ll)","reuse":[]},
+
+		{"name": "AB", "vars": ["i","j","rv","ll"], "estime":[{"i" : 512}, {"j":500}, {"ll":100}], "calls": []},
+
+		{"name": "AB.update(0)", "vars": ["i","j","rv", "ll"], "estime":[{"i" : 512}, {"j":500},{"rv":100}, {"ll":100}], "calls": ["prod","As"], "legal_vectorize": "i", "instruction":"AB(i, j, ll)=AB(i, j, ll)+prod(rv, i, j, ll)","reuse":[]},
+
+		{"name": "C_", "vars": ["i","j","ll"], "estime":[{"i" : 512}, {"j":500}, {"ll":100}], "calls": []},
+
+		{"name": "result_", "vars": ["i","j", "ll"], "estime":[{"i" : 512}, {"j":500}, {"ll":100}], "calls": ["AB.update(0)","C_"], "legal_vectorize": "i", "instruction":"result_(i, j,ll) = AB(i, j,ll) + C_(i, j,ll)","reuse":["i","j"]}
+
+]}

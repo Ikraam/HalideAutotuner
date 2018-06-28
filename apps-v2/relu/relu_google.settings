@@ -1,0 +1,10 @@
+{"output_size": "128, 128, 64, 4",
+ "name_program": "relu_google", 
+ "output_type": "float",
+ "RVars":[],
+ "constantes":{},
+ "functions": [ 
+               {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 128}, {"y": 128}, {"c" :64}, {"n": 4}], "calls": []},
+               {"name": "relu", "vars": ["x", "y","c","n"], "estime":[{"x" : 128}, {"y" : 128},{"c" :64},{"n": 4}], "calls": ["input"],  "legal_vectorize": "x", "instruction":"conv(x,y,c,n)=relu(x,y,c,n)","reuse":[]} 
+]}
+             

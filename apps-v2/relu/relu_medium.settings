@@ -1,0 +1,10 @@
+{"output_size": "64, 64, 32, 32",
+ "name_program": "relu_medium", 
+ "output_type": "float",
+ "RVars":[],
+ "constantes":{},
+ "functions": [ 
+               {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 64}, {"y": 64}, {"c" :32}, {"n": 32}], "calls": []},
+               {"name": "relu", "vars": ["x", "y","c","n"], "estime":[{"x" : 64}, {"y" : 64},{"c" :32},{"n": 32}], "calls": ["input"],  "legal_vectorize": "x", "instruction":"conv(x,y,c,n)=relu(x,y,c,n)","reuse":[]} 
+]}
+             

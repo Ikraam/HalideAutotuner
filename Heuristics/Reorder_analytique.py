@@ -17,7 +17,7 @@ from GenerationOfOptimizations.settings import *
 
 
 
-def generate_schedules_heuristic(program, args):
+def generate_schedules_heuristic(program, args, cache_line_size):
     order_optimizations = list()
 
     # define the order of optimizations for your generated schedules
@@ -34,8 +34,8 @@ def generate_schedules_heuristic(program, args):
     schedule = Schedule.Schedule(list(), args)
     settings.set_best_schedule(schedule)
     settings.set_best_time_schedule(schedule.test_schedule(program.args, program.id))
-    restrictions=define_restrictions_phase_01(program, 4)
-    settings.set_limit(100)
+    restrictions=define_restrictions_phase_01(program, cache_line_size)
+    settings.set_limit(None)
     settings.set_nb_schedule_explorer(0)
     append_and_explore_optim(schedule, program, program.id, restrictions, 0, order_optimizations)
 
@@ -50,7 +50,7 @@ def define_restrictions_phase_01(program, cache_line_size):
             restrictions.append(unroll_res)
             best_reorder_function[function.name_function] = reorder_heuristique(dict(), dict(), \
                                                          function.instruction, cache_line_size, \
-                        program.functions, program.args, function, program.constantes, program.id)
+                        program.functions, program.args, function, program.constantes, program.id, program)
 
             splitted_variables = list()
             tiled_variables = list()

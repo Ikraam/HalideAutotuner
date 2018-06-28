@@ -84,14 +84,14 @@ class ScheduleExecution():
         cpp=cppfile.name, bin=binfile, args=self.args,
         limit=math.ceil(limit) if limit < float('inf') else 0)  # fill the command arguments
       cmd += ' ' + extra_args
-      print '\n'+cmd+'\n'
+      #print '\n'+cmd+'\n'
       # compile the code and get the result in compile_result
       compile_result = self.call_program(cmd, limit,
                                          memory_limit=self.args.memory_limit)
 
       # If there was a compile error
       if compile_result['returncode'] != 0:
-        logging.error('compile failed: %s', compile_result)
+        #logging.error('compile failed: %s', compile_result)
         typeError = 'compile failed'
         return [None, typeError]
 
@@ -106,25 +106,25 @@ class ScheduleExecution():
 
       # If we had an error or result timeout
       if result['timeout']:
-        logging.info('compiler timeout %d (%.2f+%.0f cost)', limit,
-                 compile_result['time'], limit)
+        #logging.info('compiler timeout %d (%.2f+%.0f cost)', limit,
+        #         compile_result['time'], limit)
         typeError = 'compile failed'
         return [float('inf'), typeError]
       elif returncode == 142 or returncode == -14:
-        logging.info('program timeout %d (%.2f+%.2f cost)', math.ceil(limit),
-                 compile_result['time'], result['time'])
+        #logging.info('program timeout %d (%.2f+%.2f cost)', math.ceil(limit),
+        #         compile_result['time'], result['time'])
         typeError = 'program timeout'
         return [None, typeError]
 
       # If we had an invalid schedule
       elif returncode != 0:
-        logging.error('invalid schedule (returncode=%d): %s', returncode,
-                  stderr.strip())
+        #logging.error('invalid schedule (returncode=%d): %s', returncode,
+        #          stderr.strip())
         typeError = 'invalid schedule'
         with tempfile.NamedTemporaryFile(suffix='.cpp', prefix='halide-error',
                                          dir=self.args.tmp_dir, delete=False) as errfile:
           errfile.write(source)
-          logging.error('failed schedule logged to %s.\ncompile as `%s`.', errfile.name, cmd)
+          #logging.error('failed schedule logged to %s.\ncompile as `%s`.', errfile.name, cmd)
           typeError = 'failed schedule'
         if self.args.debug_error is not None and (
             self.args.debug_error in stderr
@@ -137,13 +137,13 @@ class ScheduleExecution():
         try:
           time = json.loads(stdout)['time']
         except:
-          logging.exception('error parsing output: %s', result)
+          #logging.exception('error parsing output: %s', result)
           typeError = 'Error parsing'
           return [None, typeError]
 
         # Print the execution time
-        logging.info('success: %.4f (collection cost %.2f + %.2f)',
-                 time, compile_result['time'], result['time'])
+        #logging.info('success: %.4f (collection cost %.2f + %.2f)',
+        #         time, compile_result['time'], result['time'])
         self.min_collection_cost = min(
           self.min_collection_cost, result['time'])
         typeError = None

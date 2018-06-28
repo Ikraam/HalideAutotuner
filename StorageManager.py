@@ -1,27 +1,53 @@
+# -*- coding: utf-8 -*-
 import json
 import datetime
 import collections
 import json
+import pymongo
 from pymongo import MongoClient
 import Schedule
 from Schedule import *
 import hashlib
 import Schedule
+ai = u"é"
+aie = u"è"
+
+
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
+error_msg = color.RED+'\n Aucune instance MongoDB n\'est connect'+ai+'e \n D'+ai+'marrez votre SGBD MongoDB svp'+color.END
 
 ## Set a connection to the database 'opentuner'
 class StorageManager():
-    client=MongoClient()
+    client = None
+    try :
+      client=MongoClient()
+    except pymongo.errors.ConnectionFailure, e:
+      print error_msg
+      exit(0)
     db = client['opentuner']
 
 
     # Return 'time' of a schedule if it exists on the database
-    def find_schedule(self, schedule, idProgram):
+    def find_schedule(self, schedule, id_program):
+       try :
         '''
         :param schedule: the wanted schedule.
-        :param idProgram: id of program for which the schedule was designed.
+        :param id_program: id of program for which the schedule was designed.
         :return: None if schedule unfound Time of the schedule if it has been found.
         '''
-        idOfSchedule = hashlib.md5(str(schedule)+idProgram).hexdigest()
+        idOfSchedule = hashlib.md5(str(schedule) + id_program).hexdigest()
         # If I can't find my schedule in the DB, return None
         if self.db.schedule.find({"_id": idOfSchedule}).count() == 0 :
             return None
@@ -30,29 +56,51 @@ class StorageManager():
             # Return time of the schedule
             time = doc.get('time')
             return time
+       except pymongo.errors.ServerSelectionTimeoutError :
+          print error_msg
+          exit(0)
+
+
+    def find_schedules_by_program(self, id_program):
+      try :
+        if self.db.schedule.find({"id_program": id_program}).count() == 0 :
+            return None
+        else :
+            nb_schedules = self.db.schedule.find({"id_program": id_program}).count()
+            list_schedules_id = list()
+            for doc in self.db.schedule.find({"id_program": id_program}).sort([("time", 1)])[0:int(nb_schedules*0.1)]:
+                #print doc["_id"]
+                list_schedules_id.append(doc["_id"])
+            return list_schedules_id
+      except pymongo.errors.ServerSelectionTimeoutError :
+          print error_msg
+          exit(0)
+
+
 
 
 
 
     # Store program settings into the database
-    def store_program(self, idProgram, settings, idOfMachine):
+    def store_program(self, id_program, settings, id_of_machine):
         '''
         :param program: the program that we want to store in the database
         :param settings: the information of the program
         '''
-        settings['_id'] = idProgram
-        settings['id_machine'] = idOfMachine
+        settings['_id'] = id_program
+        settings['id_machine'] = id_of_machine
         # Insert my program if it is not already inserted
-        if self.db.program.find({"_id": idProgram}).count() != 0 :
-         if self.db.program.find_one({"_id": idProgram}).get('id_machine') == None :
-            self.db.program.update({"_id": idProgram},{'id_machine':idOfMachine}, upsert= True)
-        if self.db.program.find({"_id": idProgram}).count() == 0 :
+        if self.db.program.find({"_id": id_program}).count() != 0 :
+         if self.db.program.find_one({"_id": id_program}).get('id_machine') == None :
+            self.db.program.update({"_id": id_program}, {'id_machine':id_of_machine}, upsert= True)
+        if self.db.program.find({"_id": id_program}).count() == 0 :
             self.db.program.insert(settings,check_keys = False)
 
 
     # Store machine caracteristiques on the database
     def store_machine(self, machine):
         # set the tuple
+      try :
         data_machine = {}
         data_machine["L1i_Cache_Size"] = machine.L1i_cache
         data_machine["L1d_Cache_Size"] = machine.L1d_cache
@@ -67,6 +115,10 @@ class StorageManager():
             # Store machine caracteristiques
             self.db.machine.insert(data_machine,check_keys = False)
         return idOfMachine
+      except pymongo.errors.ServerSelectionTimeoutError :
+          print error_msg
+          exit(0)
+
 
 
 
@@ -75,13 +127,14 @@ class StorageManager():
 
     # Store schedule into the database
     def store_schedule(self, schedule, error, idProgram, time_of_schedule):
-        '''
+      '''
         :param schedule: the schedule that we want to store
         :param error: the error that we get once we execute the schedule
         :param idProgram:
         :param time_of_schedule:
         :return: idSchedule
         '''
+      try :
         insert = False
         modify = False
 
@@ -228,12 +281,20 @@ class StorageManager():
 
 
         return resultn
+      except pymongo.errors.ServerSelectionTimeoutError :
+          print error_msg
+          exit(0)
+
 
 
 
     # Find the best schedule for the program with the id : idProgram
     def find_best_schedule(self, idProgram):
+      try :
         best_case = list(self.db.schedule.find({"id_program":idProgram, "error":None}).sort([('time',1)]).limit(1))
         print json.dumps(best_case[0], indent=4, sort_keys=True)
+      except pymongo.errors.ServerSelectionTimeoutError :
+          print error_msg
+          exit(0)
 
 

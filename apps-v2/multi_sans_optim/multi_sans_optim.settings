@@ -1,0 +1,19 @@
+{"output_size": "20, 30",
+ "name_program": "multiplication_conv", 
+ "output_type": "float",
+ "RVars" : ["rv"],
+ "functions": [ 
+
+	       {"name": "A", "vars": ["i","j"], "estime":[{"i" : 20}, {"j":50}], "calls": []},
+        	{"name": "B", "vars": ["i","j"], "estime":[{"i" : 30}, {"j" : 50}], "calls": []},
+
+		{"name": "prod", "vars": ["k","i","j"], "estime":[{"k" : 50},{"i" : 20}, {"j":30}], "calls": ["A","B"], "legal_vectorize": "k", "instruction":"prod(k, i, j) = A(i, k) * B(k,j)","reuse":["i","j"]},
+
+		{"name": "AB", "vars": ["i","j","rv"], "estime":[{"i" : 20}, {"j":30}], "calls": []},
+
+		{"name": "AB.update(0)", "vars": ["i","j","rv"], "estime":[{"i" : 20}, {"j":30},{"rv":50}], "calls": ["prod"], "legal_vectorize": "i", "instruction":"AB(i, j)=AB(i, j)+prod(rv, i, j)","reuse":[]},
+
+		{"name": "C_", "vars": ["i","j"], "estime":[{"i" : 20}, {"j":30}], "calls": []},
+
+		{"name": "result_", "vars": ["i","j"], "estime":[{"i" : 20}, {"j":30}], "calls": ["AB.update(0)","C_"], "legal_vectorize": "i", "instruction":"result_(i, j) = AB(i, j) + C_(i, j)","reuse":[]}
+]}

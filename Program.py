@@ -4,6 +4,18 @@ import Schedule
 import hashlib
 
 
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
 class Variable():
     def __init__(self, name_var, extent_var, type):
         self.name_var = name_var
@@ -153,23 +165,40 @@ class Program():
 
     @staticmethod
     def init_program(settingsFileName, args):
-        '''
+     '''
 
      :param settingsFileName: name of input settings file
      :param args: arguments passed from the input command line
      :return: program object and its settings
      '''
+     if settingsFileName != None :
         ## As .settings file is a json file, let's load it
         with open(settingsFileName) as fd:
+           try :
             settings = json.load(fd)
+           except ValueError :
+               print color.RED+"Fichier d'annotation non conforme au format JSON"+color.END
+               exit(0)
         list_of_functions = list()
         # Let's init program variables
-        output_size = settings['output_size']
-        args.output_size = settings['output_size']
-        output_type = settings['output_type']
-        nameProgram = settings['name_program']
-        args.nameProgram = settings['name_program']
-        args.output_type = settings['output_type']
+        if 'output_size' in settings :
+            output_size = settings['output_size']
+            args.output_size = settings['output_size']
+        else :
+            print color.RED+'Pas de output_size dans le fichier d\'annotation'+color.END
+            exit(0)
+        if 'output_type' in settings :
+            output_type = settings['output_type']
+            args.output_type = settings['output_type']
+        else :
+            print color.RED+'Pas de output_type dans le fichier d\'annotation'+color.END
+            exit(0)
+        if 'name_program' in settings :
+            nameProgram = settings['name_program']
+            args.nameProgram = settings['name_program']
+        else :
+            nameProgram = 'anonyme'
+            args.nameProgram = 'anonyme'
         args.limit = 6.0
         if 'RVars' in settings :
             RVars = settings['RVars']
@@ -179,7 +208,9 @@ class Program():
             constantes = settings['constantes']
         else :
             constantes = None
-        for func in settings['functions']:
+
+        if 'functions' in settings :
+         for func in settings['functions']:
             if 'tile_level' in func :
                 tile_level = func['tile_level']
             else :
@@ -193,7 +224,8 @@ class Program():
             else :
                 legal_vectorize = None
             list_variables = list()
-            for estime in func['estime']:
+            if 'estime' in func :
+              for estime in func['estime']:
                 for var in estime.keys():
                    if RVars != None :
                     if var in RVars :
@@ -203,7 +235,8 @@ class Program():
                    new_var = Variable(var, estime[var], type_var)
                    list_variables.append(new_var)
             list_producers = list()
-            for producer in func['calls']:
+            if 'calls' in func :
+             for producer in func['calls']:
                 list_producers.append(producer)
             list_reuses = list()
             if 'reuse' in func :
@@ -218,6 +251,9 @@ class Program():
         id_program = hashlib.md5(str(program1)).hexdigest()
         program1.id = id_program
         return [program1, settings]
+     else:
+         print color.RED+'Indiquez d\'abord le chemin vers le fichier d\'annotation !'+color.END
+         exit(0)
 
 
     def reorder_functions_program(self):

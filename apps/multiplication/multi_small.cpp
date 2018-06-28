@@ -28,9 +28,9 @@ int main(int argc, char **argv) {
     Func AB("AB");
     RDom rv(0, 10);
 
-    Halide::Buffer<float> A_ (100,10);
-    Halide::Buffer<float> B_ (10,200);
-    Halide::Buffer<float> D_ (100,200);
+    Halide::Buffer<float> A_ (500,10);
+    Halide::Buffer<float> B_ (10,500);
+    Halide::Buffer<float> D_ (500,500);
     Halide::Buffer<float> outputBuf;
     Halide::Buffer<float> outputBufNaive;
     int m,n,l;

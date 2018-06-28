@@ -1,8 +1,20 @@
 limit = 0
 best_schedule = None
-nb_schedule_explored = 0
 best_time = 0
+worst_time = 0
+worst_schedule = None
+nb_schedule_explored = 0
 store_schedules = False
 nb_schedules_to_store = 0
 stored_schedules = list()
 total_nb_schedule = 0
+timer = 0
+schedules_id = list()
+indexes = None
+types = None
+naif_time = 0
+plot_x = list()
+plot_y = list()
+time_reorder = 0
+time_unroll = 0
+

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+import time
 import Schedule
 from Schedule import *
 import re
@@ -10,11 +12,13 @@ import numpy as np
 from scipy.optimize import minimize
 from sympy.parsing.sympy_parser import parse_expr
 from operator import itemgetter, attrgetter, methodcaller
-
+a_acc = u"à"
+ai = u"é"
+aie = u"è"
 
 
 def reorder_heuristique(tiled_vars_factor, splitted_vars_factor, instruction, cache_line_size, \
-                        functions, args, consumer, constantes, idProgram):
+                        functions, args, consumer, constantes, idProgram, program):
     '''
 
     :param tiled_vars_factor: tiled variables
@@ -26,7 +30,7 @@ def reorder_heuristique(tiled_vars_factor, splitted_vars_factor, instruction, ca
     :param consumer: the function concerned about the reorder optimization
     :return: the best reorder of consumer loop nests
     '''
-    print constantes
+    #print constantes
 
     # Find the best reorder but the reorder can be invalid
     [best_reorder, final_costs] = find_approximative_best_reorder(instruction, cache_line_size, functions, consumer, constantes)
@@ -54,16 +58,18 @@ def reorder_heuristique(tiled_vars_factor, splitted_vars_factor, instruction, ca
     parallel_optimization = ParallelOptimization(consumer, list_reorder_object_var[len(list_reorder_object_var)-1], True)
     schedule.optimizations.append(reorder_optimization)
     schedule.optimizations.append(parallel_optimization)
-    # contains all the possible reorders with their execution time
+    # contains all the possible reorders with their execution time_
     list_reorders = list()
     storage = StorageManager()
     # May be this schedule has been already executed, so check for it on the database
-    time = schedule.test_schedule(args,idProgram)
-    if time == float('inf'):
+    time_ = schedule.test_schedule(args,idProgram, program)
+    if time_ == float('inf'):
+       print '\n \nCorrection de l\'interversion retourn'+ai+'e par le mod'+aie+'le'
+       time.sleep(3)
        schedule.optimizations.remove(parallel_optimization)
-       time = schedule.test_schedule(args,idProgram)
+       time_ = schedule.test_schedule(args,idProgram, program)
     # if the schedule gives an invalid program or gives a timeout execution
-    if time == float('inf') :
+    if time_ == float('inf') :
         # let's change the reorder optimization
         schedule.optimizations.remove(reorder_optimization)
         #schedule.optimizations.remove(parallel_optimization)
@@ -104,13 +110,13 @@ def reorder_heuristique(tiled_vars_factor, splitted_vars_factor, instruction, ca
                                                                     ,True)
                        schedule.optimizations.append(parallel_optimization)
                        # test the schedule
-                       time = schedule.test_schedule(args,id_program=idProgram)
+                       time_ = schedule.test_schedule(args,id_program=idProgram,program=program)
                        schedule.optimizations.remove(reorder_optimization)
                        schedule.optimizations.remove(parallel_optimization)
                        # if it was a valid schedule (a valide reorder) so let's append it to list_reorders
-                       if (time != None) & (time != float('inf')):
-                          # list_reorders contains all the valid schedule with their execution time
-                          list_reorders.append([P_modif[:], time])
+                       if (time_ != None) & (time_ != float('inf')):
+                          # list_reorders contains all the valid schedule with their execution time_
+                          list_reorders.append([P_modif[:], time_])
                           O.remove(elem)
                           break
                        P_modif.remove(elem)
@@ -154,7 +160,9 @@ def find_approximative_best_reorder(instruction, cache_line_size, functions, con
                 # check if the reference is relevant
                 # if yes give a cost for each reference according to the loop nest level considered
                 if ref in name_considered_functions :
-                    cost_for_each_loop_nest[loop_nest_level.name_var][ref] = cost_ref_loop(ref, function_vars, \
+                    cost_for_each_loop_nest[loop_nest_level.name_var][ref] = cost_ref_loop(ref, \
+                                                                                           function_vars,\
+                                                                                           \
                                                                                           loop_nest_level.name_var,
                                                                                           consumer, cache_line_size, constantes)
 
@@ -197,11 +205,16 @@ def find_approximative_best_reorder(instruction, cache_line_size, functions, con
         for var in final_costs :
             final_costs_tuples.append((var,final_costs[var]))
         newlist = sorted(final_costs_tuples, key=itemgetter(1), reverse=True)
-        print newlist
+        #print newlist
 
         for tuple in newlist :
             final_reorder.append(tuple[0])
 
+        print "\n \n"
+        print 'La fonction '+a_acc+' r'+ai+'ordonner : ', consumer
+        time.sleep(6)
+        print 'L\'interversion retourn'+ai+'e par le mod'+aie+'le : ', final_reorder
+        time.sleep(3)
         return [final_reorder, store_final_cost]
 
 
@@ -363,7 +376,8 @@ def cost_ref_loop(ref, function_vars, loop_nest_level, consumer, cache_line_size
     :param loop_nest_level:
     :param consumer:
     :param cache_line_size:
-    :return: the first cost (check ken kennedy Heuristic) associated to ref function and the loop nest level loop_nest_level
+    :return: the first cost (check ken kennedy Heuristic) associated to ref function and the loop nest
+    level loop_nest_level
     '''
     loop_nest_level_exist = False
     index_function_field = 0
@@ -470,7 +484,8 @@ def small_threshold(function_vars, variables, function1, function2, cache_line_s
     if '.' in expression_function2_contiguous :
         expression_function2_contiguous = expression_function2_contiguous.replace('.','')
 
-    ## Identify the manipulated variables in expression_functionx_contiguous using ast module (without using split)
+    ## Identify the manipulated variables in expression_functionx_contiguous using ast module
+    # (without using split)
     formula = expression_function2_contiguous
     vars_func = [
     node.id for node in ast.walk(ast.parse(formula))

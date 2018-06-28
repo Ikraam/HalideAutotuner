@@ -12,10 +12,19 @@ from Restrictions_.SplitRestriction_ import *
 from Restrictions_.TileRestriction_ import *
 from Restrictions_.ReorderRestriction_ import *
 import ScheduleExecution
-import Save_excel
-from Save_excel import ExcelWriter
 
 
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 
 class Schedule:
     def __init__(self, optimizations, args):
@@ -33,14 +42,35 @@ class Schedule:
                 string_to_return=string_to_return+str(optim)
         return string_to_return
 
-    def test_schedule(self, args, id_program):
-        sched_exec = ScheduleExecution.ScheduleExecution(args, 1000)
+    def str_types(self, types):
+        string_to_return = ''
+        index = 0
+        for optim in self.optimizations :
+            if type(optim) in types :
+                if str(optim) != '':
+                    string_to_return=string_to_return+color.BLUE+str(optim)+color.END
+            else :
+              if str(optim) != '':
+               string_to_return=string_to_return+str(optim)
+            index+=1
+        return string_to_return
+
+    def str_colors(self, indexes):
+        string_to_return = ''
+        index = 0
+        for optim in self.optimizations :
+            if index in indexes :
+              if str(optim) != '':
+                string_to_return=string_to_return+color.BLUE+str(optim)+color.END
+            else :
+               string_to_return=string_to_return+str(optim)
+            index+=1
+        return string_to_return
+
+    def test_schedule(self, args, id_program, program):
+        sched_exec = ScheduleExecution.ScheduleExecution(args, args.time_limit)
         time = sched_exec.test_schedule(self, id_program)
-        if time < settings.get_best_time_schedule():
-            settings.set_best_time_schedule(time)
-            settings.set_best_schedule(self)
-        ExcelWriter.write_schedule_excel(self, time, settings.get_total_nb_schedule())
-        settings.set_total_nb_schedule(settings.get_total_nb_schedule()+1)
+        settings.end_test(time, self, args, id_program, program)
         return time
 
 
@@ -345,7 +375,7 @@ class UnrollOptimization(Optimization):
                 index_dot = var_name.index('.')
                 if len(var_name[index_dot+1:]) > 1 :
                     var_name = var_name.replace('.','')
-            return '{}.unroll({});'.format(self.func, var_name)
+            return '\n {}.unroll({});'.format(self.func, var_name)
         else:
             return ''
 
@@ -404,7 +434,7 @@ class VectorizeOptimization(Optimization):
                 index_dot = var_name.index('.')
                 if len(var_name[index_dot+1:]) > 1 :
                     var_name = var_name.replace('.','')
-            return '{}.vectorize({});'.format(self.func, var_name)
+            return '\n {}.vectorize({});'.format(self.func, var_name)
         else :
             return ''
 
@@ -489,7 +519,7 @@ class ParallelOptimization(Optimization):
 
     def __str__(self):
         if self.enable :
-             return '{}.parallel({});'.format(self.func, self.variable.name_var)
+             return '\n {}.parallel({});'.format(self.func, self.variable.name_var)
         else :
             return ''
 
@@ -522,7 +552,7 @@ class FuseOptimization(Optimization):
 
     def __str__(self):
         if self.enable :
-            return '{}.fuse({}, {} , {});'.format(self.func, self.variable1, self.variable2, self.fused_var)
+            return '\n {}.fuse({}, {} , {});'.format(self.func, self.variable1, self.variable2, self.fused_var)
         else :
             return ''
 
@@ -604,7 +634,7 @@ class ReorderOptimization(Optimization):
 
     def __str__(self):
       if self.enable :
-        str_to_return = '\n'+str(self.func)
+        str_to_return = '\n '+str(self.func)
         str_to_return = str_to_return+'.reorder('
         for var in self.variables :
             if var.name_var.count('.') == 1 :
@@ -668,7 +698,7 @@ class ReorderStorageOptimization(Optimization):
         self.variables = variables
 
     def __str__(self):
-        str_to_return = '\n'+str(self.func)
+        str_to_return = '\n '+str(self.func)
         str_to_return = str_to_return+'.reorder_storage('
         for var in self.variables :
             if var.name_var.count('.') == 1 :
@@ -721,9 +751,9 @@ class ComputeAtOptimization(Optimization):
             consumer_name = consumer_name.split(".")[0]
       if self.enable :
         if self.variable.name_var == 'root':
-            return '{}.compute_root();'.format(producer_name)
+            return '\n {}.compute_root();'.format(producer_name)
         name_var = self.variable.name_var
-        return '{}.compute_at({},{});'.format(producer_name, consumer_name, name_var)
+        return '\n {}.compute_at({},{});'.format(producer_name, consumer_name, name_var)
       else :
           return ''
 
@@ -770,9 +800,9 @@ class StoreAtOptimization(Optimization):
         if 'update' in consumer_name :
             consumer_name = consumer_name.split(".")[0]
         if self.variable.name_var == 'root':
-            return '{}.store_root();'.format(producer_name)
+            return '\n {}.store_root();'.format(producer_name)
         name_var = self.variable.name_var
-        return '{}.store_at({},{});'.format(producer_name, consumer_name, name_var)
+        return '\n {}.store_at({},{});'.format(producer_name, consumer_name, name_var)
        else :
            return ''
 

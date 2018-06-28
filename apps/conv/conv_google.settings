@@ -2,7 +2,7 @@
  "name_program": "convolution_google", 
  "output_type": "float",
  "RVars":["r.x","r.y","r.z"],
- "constants":[],
+ "constantes":{},
  "functions": [ 
                {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 131}, {"y": 131}, {"c" :64}, {"n": 4}], "calls": []},
                {"name": "infilter", "vars": ["x", "y","c","z"], "estime":[{"x" : 3}, {"y" : 3},{"c" : 64},{"z": 64}], "calls": []},

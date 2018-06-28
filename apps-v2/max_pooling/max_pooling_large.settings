@@ -1,0 +1,10 @@
+{"output_size": "64, 64, 32, 32",
+ "name_program": "max_pooling_large", 
+ "output_type": "float",
+ "RVars":["rp.x","rp.y"],
+ "constantes":[{"pool_size":4}], 
+ "functions": [ 
+               {"name": "input", "vars": ["x", "y", "c","n"], "estime":[{"x": 256}, {"y": 256}, {"c" :32}, {"n": 32}], "calls": []},
+               {"name": "max_pooled", "vars": ["x", "y","c","n"], "estime":[{"x" : 64}, {"y" : 64},{"c" : 32},{"n": 32}], "calls": ["input"],  "legal_vectorize": "x", "instruction":"max_pooled(x,y,c,n)=input(pool_size * x + rp.x, pool_size * y + rp.y, c, n)","reuse":["x","y"]}
+]}
+             
